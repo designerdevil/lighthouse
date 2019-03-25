@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
             return lighthouse(url, opts, config).then(results => {
 
                 report = results.report;
-                fs.writeFile("./public/something.html", report, function (fileerr) {
+                fs.writeFile("./public/report.html", report, function (fileerr) {
                     if (fileerr) {
                         return console.log(`Directory error ::> ${fileerr}`);
                     }
@@ -41,8 +41,6 @@ module.exports = (req, res, next) => {
     launchChromeAndRunLighthouse(generatedURL, opts).then(results => {
         log.setLevel(opts.logLevel);
         console.log('report is done')
-        // res.send("report is done")
-        res.sendFile(path.join(__dirname, '../../public/something.html'))
-        // res.sendFile('./public/reports/something.html');
+        res.sendFile(path.join(__dirname, '../../public/report.html'))
     });
 }
