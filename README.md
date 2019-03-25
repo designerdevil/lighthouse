@@ -1,7 +1,7 @@
 # lighthouse reporting tool
 
 ### Description
-A simple tool for scrapping the root page of the website and gathering the urls for auditing it for the website.
+A simple tool for auditing the webpage(and all the links present on the root page).
 
 This tool uses lighhout cli and chrome launcher for outputing the report.
 
@@ -35,3 +35,8 @@ This tool uses lighhout cli and chrome launcher for outputing the report.
 ### Configure   
 Change the runtimeConfig file for your feature output
 ```server > config > runtimeConfig.js```
+
+
+### How it works
+
+![Data Flow](https://github.com/designerdevil/lighthouse/blob/master/docs/dataflow.jpg)
