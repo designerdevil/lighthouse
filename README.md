@@ -28,7 +28,8 @@ This tool uses lighhout cli and chrome launcher for outputing the report.
 
 4. ```npm run start``` / ```npm start```
 
-5. View the report list on http://localhost:4002
+5. View the report list on the port mentioned above
+ http://localhost:4002
 
 
 ### Configure   
