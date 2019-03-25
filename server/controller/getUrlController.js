@@ -6,6 +6,7 @@ const fs = require('fs');
 const log = require('lighthouse-logger');
 var rimraf = require("rimraf");
 var path = require('path');
+var config = require('../config/runtimeConfig');
 
 module.exports = (req, res, next) => {
     const website = process.env.WEBSITE;
@@ -33,7 +34,7 @@ module.exports = (req, res, next) => {
         output: 'html',
         chromeFlags: ['--headless'],
         logLevel: 'info',
-        onlyCategories: ['performance','pwa','best-practices', 'seo', 'accessibility'],
+        onlyCategories: config.categories,
         view: true
 
     };
