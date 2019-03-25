@@ -5,7 +5,7 @@ A simple tool for scrapping the root page of the website and gathering the urls 
 
 This tool uses lighhout cli and chrome launcher for outputing the report.
 
-###How to start
+###How to start   
 
 1. npm install
 
@@ -31,6 +31,6 @@ This tool uses lighhout cli and chrome launcher for outputing the report.
 5. View the report list on http://localhost:4002
 
 
-###Configure
+###Configure   
 Change the runtimeConfig file for your feature output
 ```server > config > runtimeConfig.js```
