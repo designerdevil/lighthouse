@@ -24,7 +24,10 @@ module.exports = function (app) {
             app.get('/', (req, res, next) => {
                 res.send(generateList('href-list', template, websiteURLs))
             })
-            app.get('*' , virtualReportController)
+            app.get('/webReport' , virtualReportController)
+            app.get('*' , (req,res,next) => {
+                res.redirect('/')
+            })
         });
     } else {
         app.get('/', physicalReportController)
