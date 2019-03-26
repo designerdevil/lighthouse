@@ -1,7 +1,9 @@
-var getUrlController = require('../controller/getUrlController');
+var virtualReportController = require('../controller/virtualReportController');
+var physicalReportController = require('../controller/physicalReportController');
 var request = require('request');
 var getHrefs = require('get-hrefs');
 var template = require('../utils/template')
+var {generateChecklist} = require('../utils/commonUtils')
 
 
 module.exports = function (app) {
@@ -18,23 +20,12 @@ module.exports = function (app) {
             })
             .filter((value) => value.charAt(0) == '/')
             app.get('/', (req, res, next) => {
-                res.send(
-                    template.replace('href-list', websiteURLs.map((value, index) => {
-                        return `<tr>
-                            <td>${value}</td>
-                            <td><a href=${value}>Generate Report</a></td>
-                            </tr>
-                        `
-                    }).join(''))
-                )
+                res.send(generateChecklist(template, websiteURLs))
             })
-            app.get('*' , getUrlController)
-
+            app.get('*' , virtualReportController)
         });
     } else {
-        app.get('/', (req, res, next) => {
-            res.send('Website Param Not Configured Properly')
-        })
+        app.get('/', physicalReportController)
     }
 };
 

@@ -12,7 +12,6 @@
     "express": "~4.16.0",
     "get-hrefs": "^4.0.0",
     "lighthouse": "^4.2.0",
-    "lighthouse-logger": "^1.2.0",
     "rimraf": "^2.6.3"
   },
   "devDependencies": {
