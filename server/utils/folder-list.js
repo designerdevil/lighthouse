@@ -1,7 +1,7 @@
 module.exports = `<!doctype html>
 <html lang='en'>
     <head>
-        <title> Choose Performance Matrix </title>
+        <title> Generated Performance Reports </title>
         <style>
             body {
                 font-family: 'Arial';
