@@ -25,15 +25,15 @@ module.exports = function (app) {
                 res.send(generateList('href-list', template, websiteURLs))
             })
             app.get('/webReport' , virtualReportController)
-            app.get('*' , (req,res,next) => {
-                res.redirect('/')
-            })
         });
     } else {
         app.get('/', physicalReportController)
         app.get('/list', reportListController)
         app.get('/archive', archiveController)
     }
+    app.get('*' , (req,res,next) => {
+        res.redirect('/')
+    })
 };
 
 
