@@ -43,5 +43,6 @@ module.exports = (req, res, next) => {
         log.setLevel(opts.logLevel);
         console.log('report is done')
         res.sendFile(path.join(__dirname, '../../public/report.html'))
+        // res.download(path.join(__dirname, '../../public/report.html'))
     });
 }

@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "WEBSITE=http://website.com PORT=4002 nodemon ./server/server.js",
-    "start:lighthousefake": "PORT=4002 nodemon ./server/server.js"
+    "start": "WEBSITE=https://cannabis.shoppersdrugmart.ca/en_CA?skipAgeGate=true PORT=4002 nodemon ./server/server.js",
+    "generate": "PORT=4002 nodemon ./server/server.js"
   },
   "dependencies": {
     "chrome-launcher": "^0.10.5",
