@@ -7,11 +7,13 @@
     "generate": "PORT=4002 nodemon ./server/server.js"
   },
   "dependencies": {
+    "archiver": "^3.0.0",
     "chrome-launcher": "^0.10.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "get-hrefs": "^4.0.0",
     "lighthouse": "^4.2.0",
+    "promise-defer": "^1.0.0",
     "rimraf": "^2.6.3"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 module.exports = {
+    website: 'https://cannabis.shoppersdrugmart.ca',
     urls: [
         {
             name: "Home",

@@ -1,9 +1,11 @@
-var virtualReportController = require('../controller/virtualReportController');
-var physicalReportController = require('../controller/physicalReportController');
-var request = require('request');
-var getHrefs = require('get-hrefs');
-var template = require('../utils/template')
-var {generateChecklist} = require('../utils/commonUtils')
+const virtualReportController = require('../controller/virtualReportController');
+const physicalReportController = require('../controller/physicalReportController');
+const reportListController = require('../controller/reportListController');
+const archiveController = require('../controller/archiveController');
+const request = require('request');
+const getHrefs = require('get-hrefs');
+const template = require('../utils/template')
+const {generateList} = require('../utils/commonUtils')
 
 
 module.exports = function (app) {
@@ -20,12 +22,14 @@ module.exports = function (app) {
             })
             .filter((value) => value.charAt(0) == '/')
             app.get('/', (req, res, next) => {
-                res.send(generateChecklist(template, websiteURLs))
+                res.send(generateList('href-list', template, websiteURLs))
             })
             app.get('*' , virtualReportController)
         });
     } else {
         app.get('/', physicalReportController)
+        app.get('/list', reportListController)
+        app.get('/archive', archiveController)
     }
 };
 

@@ -1,7 +1,7 @@
-var URL = require('url').URL;
-var path = require('path');
-var opts = require('../config/runtimeConfig');
-var { launchChromeAndRunLighthouse, downloadFile } = require('../utils/commonUtils')
+const URL = require('url').URL;
+const path = require('path');
+const opts = require('../../config/runtimeConfig');
+const { launchChromeAndRunLighthouse, downloadFile } = require('../utils/commonUtils')
 
 module.exports = (req, res, next) => {
     const website = process.env.WEBSITE;

@@ -1,15 +1,26 @@
 const chromeLauncher = require('chrome-launcher');
 const lighthouse = require('lighthouse');
 const fs = require('fs');
-var rimraf = require("rimraf");
 
 module.exports = {
-    generateChecklist: function(template, websiteURLs) {
-        return template.replace('href-list', websiteURLs.map((value, index) => {
+    generateList: function(replacer, template, values) {
+        return template.replace(replacer, values.map((value, index) => {
             return `<tr>
                 <td>${value}</td>
                 <td><a href=/webReport?type=view&url=${value}>Generate Report</a>
                 <a href=/webReport?type=download&url=${value}>Download Report</a></td>
+                </tr>
+            `
+        }).join(''));
+    },
+    generateFolderList: function(replacer, template, values) {
+        return template.replace(replacer, values.filter(item => item.indexOf('report') != -1).map((value, index) => {
+            const dateStamp = value.split('-')[2]
+            var date = new Date(parseInt(dateStamp));
+            return `<tr>
+                <td>${date}</td>
+                <td><a href=/archive?report=${value}>Download Zip</a>
+                <a href=/archive?type=delete&report=${value}>Delete</a></td>
                 </tr>
             `
         }).join(''));
@@ -39,5 +50,13 @@ module.exports = {
             'Content-Length': file.length
         });
         res.end(file);
+    },
+    makeNewDir: function() {
+        var dir = `./public/report-on-${Date.now()}`;
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+            return dir;
+        }
+        return './public';
     }
 }
