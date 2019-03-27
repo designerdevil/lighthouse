@@ -4,14 +4,14 @@ const reportListController = require('../controller/reportListController');
 const archiveController = require('../controller/archiveController');
 const request = require('request');
 const getHrefs = require('get-hrefs');
-const template = require('../utils/template')
+const template = require('../utils/template');
+const { website } = require('../../config/urlConfig');
 const {generateList} = require('../utils/commonUtils')
 
 
 module.exports = function (app) {
     let websiteURLs;
-    const website = process.env.WEBSITE || '';
-    if (website != '') {
+    if (website) {
         request(website, function (error, response, body) {
             websiteURLs = getHrefs(body)
             .map((value, index) => {
@@ -25,15 +25,15 @@ module.exports = function (app) {
                 res.send(generateList('href-list', template, websiteURLs))
             })
             app.get('/webReport' , virtualReportController)
+            app.get('*' , (req,res,next) => {
+                res.redirect('/')
+            })
         });
     } else {
         app.get('/', physicalReportController)
         app.get('/list', reportListController)
         app.get('/archive', archiveController)
     }
-    app.get('*' , (req,res,next) => {
-        res.redirect('/')
-    })
 };
 
 

@@ -1,42 +1,41 @@
 # lighthouse reporting tool
 
-### Description
-A simple tool for auditing the webpage(and all the links present on the root page).
+## Description
+A simple tool for 
+
+Flow1 => auditing the webpage(and all the links present on the root page).
+Flow2 => auditing the pages provided
 
 This tool uses lighthouse cli and chrome launcher for outputing the report.
 
-### How to start   
-
+## How to start?   
 1. npm install
 
-2. specify website in package json
-
-```
-"scripts": {
-    "start": WEBSITE=http://website.com  ...
-    ...
-}
-```
+2. specify website(flow1)  --or--  urls(flow2) in urlConfig   
+```config > urlConfig.js```
 
 3. specify port
 ```
 "scripts": {
     "start": ... PORT=4002  ...
-    ...
 }
 ```
 
-4. ```npm run start``` / ```npm start```
+4. run 
+```
+npm start
+```
 
-5. View the report list on the port mentioned above
+5. To view the report list (flow 1)  --OR--  To generate the physical reports
  http://localhost:4002
 
 
-### Configure   
+## Configure   
 Change the runtimeConfig file for your feature output
-```server > config > runtimeConfig.js```
+```config > runtimeConfig.js```
 
 
-### How it works
+## How does it work?   
 
-![Data Flow](https://github.com/designerdevil/lighthouse/blob/master/docs/dataflow.jpg)
+### flow 1
+![Flow 1](https://github.com/designerdevil/lighthouse/blob/master/docs/dataflow.jpg)

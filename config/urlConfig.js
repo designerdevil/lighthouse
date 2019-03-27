@@ -1,5 +1,5 @@
 module.exports = {
-    website: 'https://cannabis.shoppersdrugmart.ca',
+    website: 'https://cannabis.shoppersdrugmart.ca/en_CA?skipAgeGate=true',
     urls: [
         {
             name: "Home",

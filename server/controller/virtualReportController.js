@@ -1,10 +1,10 @@
 const URL = require('url').URL;
 const path = require('path');
 const opts = require('../../config/runtimeConfig');
+const { website } = require('../../config/urlConfig');
 const { launchChromeAndRunLighthouse, downloadFile } = require('../utils/commonUtils')
 
 module.exports = (req, res, next) => {
-    const website = process.env.WEBSITE;
     const url = new URL(website)
     const generatedURL = `${url.protocol}//${url.hostname}${url.port && ':' + url.port}${req.query.url}${url.search}`;
     const type = req.query.type;

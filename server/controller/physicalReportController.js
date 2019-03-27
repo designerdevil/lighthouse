@@ -1,7 +1,7 @@
 const path = require('path');
 const defer = require('promise-defer');
 const opts = require('../../config/runtimeConfig');
-const { urls } = require('../../config/urlConfig')
+const { urls } = require('../../config/urlConfig');
 const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require('../utils/commonUtils')
 
 module.exports = (req, res, next) => {
