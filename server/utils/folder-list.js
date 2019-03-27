@@ -4,12 +4,20 @@ module.exports = `<!doctype html>
         <title> Generated Performance Reports </title>
         <style>
             body {
+                padding:0;
+                margin:0;
+            }
+            body > div {
                 font-family: 'Arial';
                 background: #febbbb;
                 background: -moz-linear-gradient(-45deg, #505d8e 0%, #68b3b7 45%, #d2e663 100%);
                 background: -webkit-linear-gradient(-45deg, #505d8e 0%,#68b3b7 45%,#d2e663 100%);
                 background: linear-gradient(135deg, #505d8e 0%,#68b3b7 45%,#d2e663 100%);
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#505d8e', endColorstr='#68b3b7',GradientType=1 );
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
             }
             a {
                 background-color: Crimson;  
@@ -27,6 +35,7 @@ module.exports = `<!doctype html>
             }
             table {
                 background-color: #fff;
+                margin: 20px auto;
             }
             
             th, td {
@@ -85,7 +94,7 @@ module.exports = `<!doctype html>
             }
         </style>
     </head>
-    <body>
+    <body><div>
         <table>
         <thead>
         <tr>
@@ -101,5 +110,5 @@ module.exports = `<!doctype html>
         report-list
         </tbody>
         </table>
-    </body>
+    </div></body>
 </html>`
