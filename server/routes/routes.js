@@ -22,7 +22,12 @@ module.exports = function (app) {
             })
             .filter((value) => value.charAt(0) == '/')
             app.get('/', (req, res, next) => {
-                res.send(generateList('href-list', template, websiteURLs))
+                res.render('layouts/main', {
+                    type: true,
+                    website: website,
+                    websiteURLs
+                });
+                // res.send(generateList('href-list', template, websiteURLs))
             })
             app.get('/webReport' , virtualReportController)
             app.get('*' , (req,res,next) => {

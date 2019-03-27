@@ -1,6 +1,8 @@
 const fs = require('fs');
 const template = require('../utils/folder-list')
 const { generateFolderList } = require('../utils/commonUtils')
+const { urls } = require('../../config/urlConfig');
+const url = new URL(urls[0].url)
 
 module.exports = (req, res, next) => {
     const path = './public'
@@ -11,15 +13,25 @@ module.exports = (req, res, next) => {
             fs.readdirSync(`${path}/${dirName}`).forEach(file => {
                 fileNames.push(file)
             });
+
+            const dateStamp = dirName.split('-')[2]
+            const date = new Date(parseInt(dateStamp));
             dir.push({
+                dirDate: date,
                 dirName,
-                fileNames
+                fileNames,
+                hasFiles: (fileNames.length > 0)
             })
         }
     });
     // fs.readdir(path, function (err, dirs) {
     //     res.send(generateFolderList('report-list', template, dirs))
     // });
-    res.send(generateFolderList('report-list', template, dir))
+    res.render('layouts/main', {
+        type: false,
+        website: url.hostname,
+        dir
+    });
+    // res.send(generateFolderList('report-list', template, dir))
     // res.send(dir)
 }

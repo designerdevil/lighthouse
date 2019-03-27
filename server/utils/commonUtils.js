@@ -1,7 +1,6 @@
 const chromeLauncher = require('chrome-launcher');
 const lighthouse = require('lighthouse');
 const fs = require('fs');
-const URL = require('url').URL;
 const { website, urls } = require('../../config/urlConfig');
 
 module.exports = {
@@ -18,8 +17,6 @@ module.exports = {
         }).join(''));
     },
     generateFolderList: function(replacer, template, values) {
-        const url = new URL(urls[0].url)
-        const renderTemplate = template.replace('my-title', url.hostname)
         return renderTemplate.replace(replacer, values.map((value, index) => {
             const dirName = value.dirName;
             const dateStamp = dirName.split('-')[2]

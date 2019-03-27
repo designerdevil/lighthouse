@@ -33,7 +33,7 @@ module.exports = (req, res, next) => {
         // archive.bulk([
         //     { expand: true, cwd: 'source', src: ['**'], dest: 'source' }
         // ]);
-        archive.directory(`./public/${reportName}/`, false);
+        archive.directory(`./public/${reportName}/`, true);
         archive.finalize();
         res.download(path.join(__dirname, `../../${zippath}`))
     }
