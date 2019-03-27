@@ -3,8 +3,8 @@
 ## Description
 A simple tool for 
 
-Flow1 => auditing the webpage(and all the links present on the root page).
-Flow2 => auditing the pages provided
+Flow1 => auditing the webpage(and all the links present on the root page).   
+Flow2 => auditing the pages provided.
 
 This tool uses lighthouse cli and chrome launcher for outputing the report.
 
