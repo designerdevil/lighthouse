@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-    <title> Generated Performance Reports </title>
+    {{> title}}
     {{> style}}
 </head>
 
@@ -10,12 +10,12 @@
     <div>
         {{#if type}}
 
-            {{> virtuallist}}
-        
+        {{> virtuallist}}
+
         {{else}}
-        
-            {{> physicallist}}
-        
+
+        {{> physicallist}}
+
         {{/if}}
     </div>
 </body>

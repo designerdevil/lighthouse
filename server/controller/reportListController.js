@@ -1,6 +1,4 @@
 const fs = require('fs');
-const template = require('../utils/folder-list')
-const { generateFolderList } = require('../utils/commonUtils')
 const { urls } = require('../../config/urlConfig');
 const url = new URL(urls[0].url)
 
@@ -24,14 +22,9 @@ module.exports = (req, res, next) => {
             })
         }
     });
-    // fs.readdir(path, function (err, dirs) {
-    //     res.send(generateFolderList('report-list', template, dirs))
-    // });
     res.render('layouts/main', {
         type: false,
         website: url.hostname,
         dir
     });
-    // res.send(generateFolderList('report-list', template, dir))
-    // res.send(dir)
 }
