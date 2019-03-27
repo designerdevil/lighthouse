@@ -4,9 +4,7 @@ const reportListController = require('../controller/reportListController');
 const archiveController = require('../controller/archiveController');
 const request = require('request');
 const getHrefs = require('get-hrefs');
-const template = require('../utils/template');
 const { website } = require('../../config/urlConfig');
-const {generateList} = require('../utils/commonUtils')
 
 
 module.exports = function (app) {
@@ -22,7 +20,11 @@ module.exports = function (app) {
             })
             .filter((value) => value.charAt(0) == '/')
             app.get('/', (req, res, next) => {
-                res.send(generateList('href-list', template, websiteURLs))
+                res.render('layouts/main', {
+                    type: true,
+                    website: website,
+                    websiteURLs
+                });
             })
             app.get('/webReport' , virtualReportController)
             app.get('*' , (req,res,next) => {
