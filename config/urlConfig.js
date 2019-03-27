@@ -1,25 +1,25 @@
 module.exports = {
-    website: 'https://cannabis.shoppersdrugmart.ca/en_CA?skipAgeGate=true',
+    website: 'https://developers.google.com/products/',
     urls: [
         {
-            name: "Home",
-            url: "https://cannabis.shoppersdrugmart.ca/en_CA?skipAgeGate=true"
+            name: "Lighthouse",
+            url: "https://developers.google.com/web/tools/lighthouse/"
         },
         {
-            name: "Products",
-            url: "https://cannabis.shoppersdrugmart.ca/en_CA/products?skipAgeGate=true"
+            name: "Input Tools",
+            url: "https://www.google.com/inputtools/"
         },
         {
-            name: "About us",
-            url: "https://cannabis.shoppersdrugmart.ca/en_CA/about-us?skipAgeGate=true"
+            name: "Workbox",
+            url: "https://developers.google.com/web/tools/workbox/"
         },
         {
-            name: "HCP",
-            url: "https://cannabis.shoppersdrugmart.ca/en_CA/health-practitioner-resources?skipAgeGate=true"
+            name: "Showcase",
+            url: "https://developers.google.com/web/showcase/"
         },
         {
-            name: "Sign Up",
-            url: "https://cannabis.shoppersdrugmart.ca/en_CA/sign-up?skipAgeGate=true"
+            name: "Abusive Experience Report",
+            url: "https://developers.google.com/abusive-experience-report/"
         }
     ]
 }
