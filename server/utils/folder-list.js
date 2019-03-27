@@ -19,6 +19,17 @@ module.exports = `<!doctype html>
                 height: 100%;
                 overflow: auto;
             }
+            h1 {
+                font-size: 20px;
+                text-align: center;
+                color: white;
+            }
+            h1 span{
+                background: #6c488e52;
+                padding: 5px 20px;
+                border-radius: 4px;
+                font-weight: normal;
+            }
             a {
                 background-color: Crimson;  
                 border-radius: 5px;
@@ -37,16 +48,14 @@ module.exports = `<!doctype html>
                 background-color: #fff;
                 margin: 20px auto;
             }
-            
             th, td {
                 font-weight: unset;
                 padding-right: 10px;
             }
-            
-            
             tr th {
                 padding-top: 14px;
                 padding-bottom: 10px;
+                padding-left: 10px;
             }
             
             tr td {
@@ -92,14 +101,29 @@ module.exports = `<!doctype html>
                 background-color: #e03e9c;
                 color: #fff;
             }
+            a.primary {
+                font-size: 16px;
+                margin: 0 auto;
+                display: block;
+                background: rgba(42, 50, 111, 0.45);
+                border-radius: 5px;
+                padding: 10px 20px;
+                max-width: 140px;
+                text-align: center;
+            }
         </style>
     </head>
-    <body><div>
+    <body>
+        <div>
+        <h1>Generated Reports for  <span>my-title</span></h1>
         <table>
         <thead>
         <tr>
         <th>
             Report Date
+        </th>
+        <th>
+            Files
         </th>
         <th>
             Action
@@ -110,5 +134,6 @@ module.exports = `<!doctype html>
         report-list
         </tbody>
         </table>
+        <a href="/generateWebReport" class="primary">Trigger New</a>
     </div></body>
 </html>`

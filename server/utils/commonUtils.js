@@ -1,10 +1,14 @@
 const chromeLauncher = require('chrome-launcher');
 const lighthouse = require('lighthouse');
 const fs = require('fs');
+const URL = require('url').URL;
+const { website, urls } = require('../../config/urlConfig');
 
 module.exports = {
     generateList: function(replacer, template, values) {
-        return template.replace(replacer, values.map((value, index) => {
+        const url = new URL(website)
+        const renderTemplate = template.replace('my-title', url.hostname)
+        return renderTemplate.replace(replacer, values.map((value, index) => {
             return `<tr>
                 <td>${value}</td>
                 <td><a href=/webReport?type=view&url=${value}>Generate Report</a>
@@ -14,13 +18,24 @@ module.exports = {
         }).join(''));
     },
     generateFolderList: function(replacer, template, values) {
-        return template.replace(replacer, values.filter(item => item.indexOf('report') != -1).map((value, index) => {
-            const dateStamp = value.split('-')[2]
-            var date = new Date(parseInt(dateStamp));
-            return `<tr>
+        const url = new URL(urls[0].url)
+        const renderTemplate = template.replace('my-title', url.hostname)
+        return renderTemplate.replace(replacer, values.map((value, index) => {
+            const dirName = value.dirName;
+            const dateStamp = dirName.split('-')[2]
+            const date = new Date(parseInt(dateStamp));
+            const fileNames = value.fileNames
+            const fileLength = fileNames.length;
+            return `<tr class="${!fileLength ? 'error' : 'success'}">
                 <td>${date}</td>
-                <td><a href=/archive?report=${value}>Download Zip</a>
-                <a href=/archive?type=delete&report=${value}>Delete</a></td>
+                <td title="${fileNames.join(",\n")}">${fileLength}</td>
+                <td>
+                    ${fileLength ? `
+                        <a href=/archive?report=${dirName}>Download Zip</a>
+                        <a href=/archive?type=delete&report=${dirName}>Delete</a>` : `
+                        <a href=/archive?type=delete&report=${dirName}>Delete</a>
+                    `}
+                </td>
                 </tr>
             `
         }).join(''));

@@ -30,9 +30,12 @@ module.exports = function (app) {
             })
         });
     } else {
-        app.get('/', physicalReportController)
-        app.get('/list', reportListController)
+        app.get('/', reportListController)
+        app.get('/generateWebReport', physicalReportController)
         app.get('/archive', archiveController)
+        app.get('*' , (req,res,next) => {
+            res.redirect('/')
+        })
     }
 };
 

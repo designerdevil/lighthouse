@@ -35,7 +35,7 @@ module.exports = (req, res, next) => {
             )
                 .then(() => {
                     resolve();
-                    res.send('All Audits Completed')
+                    res.redirect('/')
                 })
                 .catch(error => {
                     this.emit('error', error);

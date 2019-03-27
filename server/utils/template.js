@@ -19,6 +19,18 @@ module.exports = `<!doctype html>
                 height: 100%;
                 overflow: auto;
             }
+            h1 {
+                background: #6c488e52;
+                padding: 5px 20px;
+                border-radius: 4px;
+                font-weight: normal;
+            }
+            h1 span{
+                background: #b73b27;
+                padding: 10px;
+                border-radius: 4px;
+                font-weight: normal;
+            }
             a {
                 background-color: Crimson;  
                 border-radius: 5px;
@@ -96,6 +108,7 @@ module.exports = `<!doctype html>
     </head>
     <body>
         <div>
+        <h1>Generated List for  <span>my-title</span></h1>
         <table>
         <thead>
         <tr>
