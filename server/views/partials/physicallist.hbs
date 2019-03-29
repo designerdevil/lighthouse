@@ -20,7 +20,7 @@
             <td>{{this.fileNames.length}}</td>
             <td>
                 {{#if this.hasFiles}}
-                    {{!-- <a href='/archive?report={{this.dirName}}'>Download Zip</a> --}}
+                    <a href='/archive?report={{this.dirName}}'>Download Zip</a>
                 {{/if}}
                 <a href='/archive?type=delete&report={{this.dirName}}'>Delete</a>
             </td>
