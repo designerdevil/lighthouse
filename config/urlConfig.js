@@ -8,18 +8,6 @@ module.exports = {
         {
             name: "Input Tools",
             url: "https://www.google.com/inputtools/"
-        },
-        {
-            name: "Workbox",
-            url: "https://developers.google.com/web/tools/workbox/"
-        },
-        {
-            name: "Showcase",
-            url: "https://developers.google.com/web/showcase/"
-        },
-        {
-            name: "Abusive Experience Report",
-            url: "https://developers.google.com/abusive-experience-report/"
         }
     ]
 }

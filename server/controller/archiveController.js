@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
             const archiveFile = `./public/${reportName}.zip`;
             if (fs.existsSync(archiveFile)) {
                 rimraf(archiveFile, function () {
-                    console.log("File Deleted");
+                    console.log("Archive Deleted");
                     res.redirect('/list');
                 });
             } else {
@@ -29,8 +29,7 @@ module.exports = (req, res, next) => {
         const archive = archiver('zip');
 
         output.on('close', function () {
-            console.log(archive.pointer() + ' total bytes');
-            console.log('archiver has been finalized and the output file descriptor has closed.');
+            console.log(`archive created for ${reportName} :: Total bytes ${archive.pointer()}`);
             res.download(path.join(__dirname, `../../${zippath}`));
         });
 

@@ -2,6 +2,7 @@ const virtualReportController = require('../controller/virtualReportController')
 const physicalReportController = require('../controller/physicalReportController');
 const reportListController = require('../controller/reportListController');
 const archiveController = require('../controller/archiveController');
+const azureController = require('../controller/azureController');
 const request = require('request');
 const getHrefs = require('get-hrefs');
 const { website } = require('../../config/urlConfig');
@@ -35,6 +36,7 @@ module.exports = function (app) {
         app.get('/', reportListController)
         app.get('/generateWebReport', physicalReportController)
         app.get('/archive', archiveController)
+        app.get('/pushToAzure', azureController)
         app.get('*' , (req,res,next) => {
             res.redirect('/')
         })
