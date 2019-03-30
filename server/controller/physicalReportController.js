@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     }
 
     function generateReports(urls, opts) {
-        const dirName = makeNewDir()
+        const {dirName, folderName} = makeNewDir()
         return new Promise((resolve, reject) => {
             let urlArrayPosition = 0;
             urlIterator(
@@ -35,7 +35,11 @@ module.exports = (req, res, next) => {
             )
                 .then(() => {
                     resolve();
-                    res.redirect('/')
+                    if(req.query.hook) {
+                        res.redirect(`/pushToAzure?hook=true&report=${folderName}`)
+                    } else {
+                        res.redirect('/')
+                    }  
                 })
                 .catch(error => {
                     this.emit('error', error);

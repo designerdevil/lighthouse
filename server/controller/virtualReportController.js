@@ -14,6 +14,5 @@ module.exports = (req, res, next) => {
         
     }).then(results => {
         console.log('Report Served')
-        // res.sendFile(path.join(__dirname, '../../public/report.html'))
     });
 }

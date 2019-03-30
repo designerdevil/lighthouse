@@ -31,10 +31,17 @@ module.exports = {
         res.end(file);
     },
     makeNewDir: function() {
-        var dir = `./public/report-on-${Date.now()}`;
+        const dateStamp = Date.now()
+        var folderName = `report-on-${dateStamp}`
+        const date = new Date(parseInt(dateStamp));
+        var dir = `./public/${folderName}`;
         if (!fs.existsSync(dir)){
             fs.mkdirSync(dir);
-            return dir;
+            return {
+                dirName: dir,
+                folderName: folderName,
+                date
+            };
         }
         return './public';
     }

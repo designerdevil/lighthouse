@@ -1,6 +1,7 @@
 const virtualReportController = require('../controller/virtualReportController');
 const physicalReportController = require('../controller/physicalReportController');
 const reportListController = require('../controller/reportListController');
+const hookController = require('../controller/hookController');
 const archiveController = require('../controller/archiveController');
 const azureController = require('../controller/azureController');
 const request = require('request');
@@ -37,6 +38,7 @@ module.exports = function (app) {
         app.get('/generateWebReport', physicalReportController)
         app.get('/archive', archiveController)
         app.get('/pushToAzure', azureController)
+        app.post('/hookme', hookController)
         app.get('*' , (req,res,next) => {
             res.redirect('/')
         })
