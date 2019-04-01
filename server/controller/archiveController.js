@@ -10,10 +10,10 @@ module.exports = (req, res, next) => {
 
     if (type == "delete") {
 
-        rimraf(`./public/${reportName}`, function () {
+        rimraf(`./public/${reportName}`, () => {
             const archiveFile = `./public/${reportName}.zip`;
             if (fs.existsSync(archiveFile)) {
-                rimraf(archiveFile, function () {
+                rimraf(archiveFile, () => {
                     console.log("Archive Deleted");
                     res.redirect("/list");
                 });
@@ -28,19 +28,19 @@ module.exports = (req, res, next) => {
         const output = fs.createWriteStream(`./${zippath}`);
         const archive = archiver("zip");
 
-        output.on("close", function () {
+        output.on("close", () => {
             console.log(`archive created for ${reportName} :: Total bytes ${archive.pointer()}`);
             res.download(path.join(__dirname, `../../${zippath}`));
         });
 
-        archive.on("error", function (err) {
+        archive.on("error", (err) => {
             throw err;
         });
         archive.pipe(output);
         archive.directory(`./public/${reportName}/`, false);
         archive.finalize();
 
-        archive.on("end", function (err) {
+        archive.on("end", (err) => {
             console.log(path.join(__dirname, `../../${zippath}`));
         });
 
