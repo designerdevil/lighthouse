@@ -1,10 +1,15 @@
 const fs = require('fs');
 const rimraf = require("rimraf");
+const configData = require('../../config/urlConfig');
 
 module.exports = (req, res, next) => {
 
-    if (process.env.NODE_ENV !== 'production') {
-        require('dotenv').config()
+    if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
+        res.json({
+            status: 'fail',
+            error: 'Please provide AZURE connection string'
+        });
+        return;
     }
     const dirName = req.query.report;
     const path = require('path');
@@ -77,23 +82,27 @@ module.exports = (req, res, next) => {
                     if (fs.existsSync(archiveFile)) {
                         rimraf(archiveFile, function () {
                             console.log(`Archive Deleted ${dirName}.zip`);
-                            if (req.query.hook)
+                            if (req.query.hook){
                                 res.json({
                                     status: "success",
                                     reportName: dirName,
                                     date: date.toString()
                                 })
-                            else
+                                delete process.env.AZURE_STORAGE_CONNECTION_STRING
+                                configData.external = []
+                            }else
                                 res.redirect('/');
                         });
                     } else {
-                        if (req.query.hook)
+                        if (req.query.hook){
                             res.json({
                                 status: "success",
                                 reportName: dirName,
                                 date: date.toString()
                             })
-                        else
+                            delete process.env.AZURE_STORAGE_CONNECTION_STRING
+                            configData.external = []
+                        }else
                             res.redirect('/');
                     }
                 });
@@ -105,7 +114,7 @@ module.exports = (req, res, next) => {
     execute().then(() => {
         console.log(`"${dirName}" :::: Pushing to Azure...`)
     }).catch((e) => {
-        console.log(e)
+        res.send(e)
     });
 
 }

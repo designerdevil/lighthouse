@@ -21,7 +21,7 @@
             <td>
                 {{#if this.hasFiles}}
                     <a href='/archive?report={{this.dirName}}'>Download Zip</a>
-                    <a href='/pushToAzure?report={{this.dirName}}'>Push to Azure</a>
+                    {{!-- <a href='/pushToAzure?report={{this.dirName}}'>Push to Azure</a> --}}
                 {{/if}}
                 <a href='/archive?type=delete&report={{this.dirName}}'>Delete</a>
             </td>

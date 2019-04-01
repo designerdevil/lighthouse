@@ -9,5 +9,6 @@ module.exports = {
             name: "Input Tools",
             url: "https://www.google.com/inputtools/"
         }
-    ]
+    ],
+    external: []
 }
