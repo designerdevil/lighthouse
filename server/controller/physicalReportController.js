@@ -1,7 +1,7 @@
-const defer = require('promise-defer');
-const opts = require('../../config/runtimeConfig');
-const configData = require('../../config/urlConfig');
-const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require('../utils/commonUtils')
+const defer = require("promise-defer");
+const opts = require("../../config/runtimeConfig");
+const configData = require("../../config/urlConfig");
+const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require("../utils/commonUtils")
 
 module.exports = (req, res, next) => {
     function urlIterator(condition, action) {
@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
     }
 
     function generateReports(urls, opts) {
-        const {dirName, folderName} = makeNewDir()
+        const { dirName, folderName } = makeNewDir()
         return new Promise((resolve, reject) => {
             let urlArrayPosition = 0;
             urlIterator(
@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
                 () => {
                     const urlObj = urls[urlArrayPosition];
                     const url = urlObj.url;
-                    const name = urlObj.name && urlObj.name.toLowerCase().replace(/ /g,'-');
+                    const name = urlObj.name && urlObj.name.toLowerCase().replace(/ /g, "-");
                     return launchChromeAndRunLighthouse(url, opts, (report) => {
                         writeFile(`${dirName}/${name}.html`, report)
                     }).then(results => {
@@ -34,14 +34,14 @@ module.exports = (req, res, next) => {
             )
                 .then(() => {
                     resolve();
-                    if(req.query.hook) {
+                    if (req.query.hook) {
                         res.redirect(`/pushToAzure?hook=true&report=${folderName}`)
                     } else {
-                        res.redirect('/')
-                    }  
+                        res.redirect("/")
+                    }
                 })
                 .catch(error => {
-                    this.emit('error', error);
+                    this.emit("error", error);
                     reject(error);
                 });
         });

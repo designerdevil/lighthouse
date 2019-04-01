@@ -1,19 +1,19 @@
-const fs = require('fs');
+const fs = require("fs");
 const rimraf = require("rimraf");
-const configData = require('../../config/urlConfig');
+const configData = require("../../config/urlConfig");
 
 module.exports = (req, res, next) => {
 
     if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
         res.json({
-            status: 'fail',
-            error: 'Please provide AZURE connection string'
+            status: "fail",
+            error: "Please provide AZURE connection string"
         });
         return;
     }
     const dirName = req.query.report;
-    const path = require('path');
-    const storage = require('azure-storage');
+    const path = require("path");
+    const storage = require("azure-storage");
 
 
     const blobService = storage.createBlobService();
@@ -32,11 +32,11 @@ module.exports = (req, res, next) => {
 
     const createContainer = async (containerName) => {
         return new Promise((resolve, reject) => {
-            blobService.createContainerIfNotExists(containerName, { publicAccessLevel: 'blob' }, err => {
+            blobService.createContainerIfNotExists(containerName, { publicAccessLevel: "blob" }, err => {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve({ message: `Container '${containerName}' created` });
+                    resolve({ message: `Container "${containerName}" created` });
                 }
             });
         });
@@ -57,7 +57,7 @@ module.exports = (req, res, next) => {
     };
 
     const execute = async () => {
-        const path = './public'
+        const path = "./public"
         let response;
 
         console.log("Containers:");
@@ -76,13 +76,13 @@ module.exports = (req, res, next) => {
             console.log(response.message);
             fileLen--
             if (fileLen >= 0) {
-                const date = new Date(parseInt(dirName.split('-')[2]))
+                const date = new Date(parseInt(dirName.split("-")[2]))
                 rimraf(`${path}/${dirName}`, function () {
                     const archiveFile = `${path}/${dirName}.zip`;
                     if (fs.existsSync(archiveFile)) {
                         rimraf(archiveFile, function () {
                             console.log(`Archive Deleted ${dirName}.zip`);
-                            if (req.query.hook){
+                            if (req.query.hook) {
                                 res.json({
                                     status: "success",
                                     reportName: dirName,
@@ -90,11 +90,11 @@ module.exports = (req, res, next) => {
                                 })
                                 delete process.env.AZURE_STORAGE_CONNECTION_STRING
                                 configData.external = []
-                            }else
-                                res.redirect('/');
+                            } else
+                                res.redirect("/");
                         });
                     } else {
-                        if (req.query.hook){
+                        if (req.query.hook) {
                             res.json({
                                 status: "success",
                                 reportName: dirName,
@@ -102,8 +102,8 @@ module.exports = (req, res, next) => {
                             })
                             delete process.env.AZURE_STORAGE_CONNECTION_STRING
                             configData.external = []
-                        }else
-                            res.redirect('/');
+                        } else
+                            res.redirect("/");
                     }
                 });
             }

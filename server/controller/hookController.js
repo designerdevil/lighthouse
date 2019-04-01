@@ -1,4 +1,4 @@
-const configData = require('../../config/urlConfig');
+const configData = require("../../config/urlConfig");
 
 module.exports = (req, res, next) => {
     console.log("Incoming Request")
@@ -9,8 +9,8 @@ module.exports = (req, res, next) => {
         res.redirect("/generateWebReport?hook=true")
     } else {
         res.json({
-            status: 'failure',
-            error: (!reqHeader['x-connection-string']) ? 'Please provide AZURE connection string' : 'Provide correct deployment hook header'
+            status: "failure",
+            error: (!reqHeader["x-connection-string"]) ? "Please provide AZURE connection string" : "Provide correct deployment hook header"
         });
         return;
     }
