@@ -13,7 +13,6 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3001');
-// process.env.AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=storagetestgm;AccountKey=fYuMzMVxYPv7YmjSTSBejs2RJyP2uTpsNDHrrdcPJIigBRPvZ45/fGLciJeN/veVxletzQIp7ofCnwkGxSMzOQ==;EndpointSuffix=core.windows.net";
 app.set('port', port);
 
 /**
