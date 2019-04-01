@@ -7,7 +7,7 @@ Gather URLs(from root page) based on the website provided in config and create a
 
 - use ```config > urlConfig.js``` for defining website
 - run the application
-- choose to "Generate Report" or "Download Report" for individual urls from the list
+- choose to "Generate Report" or "Download Report" for individual urls from the list   
 
 ![Flow 1](https://github.com/designerdevil/lighthouse/blob/master/docs/1.png)
 
@@ -18,7 +18,8 @@ Directly run audit on the urls provided in config and generate physical reports 
 - use ```config > urlConfig.js``` for defining urls
 - run the application
 - Trigger new audit run
-- after report generation of all the urls as a batch is completed one can either download the archive or delete the generated reports from server(which are available in the list)
+- after report generation of all the urls as a batch is completed one can either download the archive or delete the generated reports from server(which are available in the list)   
+
 ![Flow 2](https://github.com/designerdevil/lighthouse/blob/master/docs/2.png)
 
 ## Webhook Support + Azure Blob Storage(ABS)
