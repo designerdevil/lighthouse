@@ -6,6 +6,7 @@ var fs = require('fs');
 
 const app = express();
 
+app.use(express.json());
 // Register `hbs` as our view engine using its bound `engine()` function.
 app.set('view engine', 'hbs');
 app.set('views', [

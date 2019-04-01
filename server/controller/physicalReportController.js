@@ -1,7 +1,6 @@
-const path = require('path');
 const defer = require('promise-defer');
 const opts = require('../../config/runtimeConfig');
-const { urls } = require('../../config/urlConfig');
+const configData = require('../../config/urlConfig');
 const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require('../utils/commonUtils')
 
 module.exports = (req, res, next) => {
@@ -47,7 +46,7 @@ module.exports = (req, res, next) => {
                 });
         });
     }
-
+    const urls = configData.external.length ? configData.external : configData.urls
     return generateReports(urls, opts)
 
 
