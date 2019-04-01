@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "e1f98d1a-1dfe-49a1-baf2-2f9b80c669f2",
+		"name": "Lighthouse Report",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Performance Hook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-event",
+						"type": "text",
+						"value": "deployment"
+					},
+					{
+						"key": "x-connection-string",
+						"type": "text",
+						"value": "<Azure blob connection string goes here>"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Website URL\",\n        \"url\": \"https://www.website.com/\"\n    }\n]"
+				},
+				"url": {
+					"raw": "http://localhost:4002/hookme",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"hookme"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
