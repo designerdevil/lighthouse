@@ -39,7 +39,7 @@ Gather the url checklist from a post request with the ABS connection string in h
 
 
 ### Configuration   
-By default the audit run are for following parameters
+By default the audit runs on below parameters
 - Performance
 - PWA
 - Best Practices
