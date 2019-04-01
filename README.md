@@ -29,7 +29,7 @@ Gather the url checklist from a post request with the ABS connection string in h
 - provide ```x-event = 'development``` and ```x-connection-string = <AZURE BLOB STORAGE CONNECTION STRING>```
 - provide array of url object in body   ```[{ "name": "Page Name"  ,  "url": "http://websiteurl.com" }, ...]```
 
-**For reference a postman data collection is present here**
+**For reference a postman data collection is present [here](https://github.com/designerdevil/lighthouse/blob/master/docs/Lighthouse.postman_collection.json)**
 
 
 
@@ -39,8 +39,13 @@ Gather the url checklist from a post request with the ABS connection string in h
 
 
 ### Configuration   
+By default the audit run are for following parameters
+- Performance
+- PWA
+- Best Practices
+- SEO
+- Accessibility
+
 Change the runtimeConfig file for your feature output
 ```config > runtimeConfig.js```
 
-
-## How does it work?   
