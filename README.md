@@ -54,4 +54,4 @@ Change the runtimeConfig file for your feature output
 ### Dockerized Solution
 - Create a build from the docker file included   
 ```docker build -t <image name> .```
-- Alter and run below command for running the image through a container.   ```docker run -d -p <port to be exposed>:4002 --name <container name> --cap-add=SYS_ADMIN <image name>```
+- Alter and run below command for running the image through a container.    ```docker run -d -p <port to be exposed>:4002 --name <container name> --cap-add=SYS_ADMIN <image name>```
