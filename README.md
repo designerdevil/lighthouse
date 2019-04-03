@@ -49,3 +49,9 @@ By default the audit runs on below parameters
 Change the runtimeConfig file for your feature output
 ```config > runtimeConfig.js```
 
+
+
+### Dockerized Solution
+- Create a build from the docker file included
+- Alter and run below command for running the image through a container.
+```docker run -d -p <port to be exposed>:4002 --name <container name> --cap-add=SYS_ADMIN <image name>```
