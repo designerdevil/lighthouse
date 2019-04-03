@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PORT=400 ./public/server.js",
+    "start": "PORT=4002 node ./public/server.js",
     "dev": "PORT=4002 nodemon ./server/server.js",
     "build": "webpack --config ./webpack.config.js --mode production"
   },
@@ -18,12 +18,12 @@
     "lighthouse": "^4.2.0",
     "promise-defer": "^1.0.0",
     "request": "^2.88.0",
-    "rimraf": "^2.6.3"
-  },
-  "devDependencies": {
-    "nodemon": "^1.18.9",
+    "rimraf": "^2.6.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

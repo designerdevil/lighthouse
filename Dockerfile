@@ -23,10 +23,11 @@ COPY config /lighthouse/config
 COPY public /lighthouse/public
 COPY server /lighthouse/server
 
+COPY webpack.config.js /lighthouse/webpack.config.js
 COPY package.json /lighthouse/package.json
 COPY package-lock.json /lighthouse/package-lock.json
 
-RUN npm install
+RUN npm install && npm run build
 
 
 RUN groupadd -r chrome && useradd -r -m -g chrome -G audio,video chrome && \
