@@ -41,7 +41,7 @@ module.exports = (req, res, next) => {
                     }
                 })
                 .catch(error => {
-                    this.emit("error", error);
+                    console.log("error", error);
                     reject(error);
                 });
         });

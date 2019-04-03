@@ -75,7 +75,7 @@ module.exports = (req, res, next) => {
             response = await uploadLocalFile(dirName, `${path}/${dirName}/${file}`);
             console.log(response.message);
             fileLen--
-            if (fileLen >= 0) {
+            if (fileLen <= 0) {
                 const date = new Date(parseInt(dirName.split("-")[2]))
                 rimraf(`${path}/${dirName}`, function () {
                     const archiveFile = `${path}/${dirName}.zip`;
