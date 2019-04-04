@@ -2,6 +2,7 @@ const fs = require("fs");
 const rimraf = require("rimraf");
 const configData = require("../../config/urlConfig");
 const { getUTCDate, sanitizeDirName } = require("../utils/commonUtils");
+const route = require("../constants/endpoints");
 
 module.exports = (req, res, next) => {
 
@@ -65,7 +66,7 @@ module.exports = (req, res, next) => {
         const path = "./public"
         let response;
 
-        console.log("Containers:");
+        console.log("Containers Found ::");
         response = await listContainers();
         response.containers.forEach((container) => console.log(` -  ${container.name}`));
         const containerList = response.containers;
@@ -91,7 +92,7 @@ module.exports = (req, res, next) => {
                                 delete process.env.AZURE_STORAGE_CONNECTION_STRING
                                 configData.external = []
                             } else
-                                res.redirect("/");
+                                res.redirect(route.root);
                         });
                     } else {
                         if (req.query.hook) {
@@ -99,7 +100,7 @@ module.exports = (req, res, next) => {
                             delete process.env.AZURE_STORAGE_CONNECTION_STRING
                             configData.external = []
                         } else
-                            res.redirect("/");
+                            res.redirect(route.root);
                     }
                 });
             }

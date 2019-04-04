@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const archiver = require("archiver");
 var rimraf = require("rimraf");
+const route = require("../constants/endpoints");
 
 module.exports = (req, res, next) => {
     const reportName = req.query.report;
@@ -15,11 +16,11 @@ module.exports = (req, res, next) => {
             if (fs.existsSync(archiveFile)) {
                 rimraf(archiveFile, () => {
                     console.log("Archive Deleted");
-                    res.redirect("/list");
+                    res.redirect(route.root);
                 });
             } else {
                 console.log("File Deleted");
-                res.redirect("/list");
+                res.redirect(route.root);
             }
         });
 

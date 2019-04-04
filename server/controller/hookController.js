@@ -1,14 +1,15 @@
 const configData = require("../../config/urlConfig");
+const route = require("../constants/endpoints");
 
 module.exports = (req, res, next) => {
-    console.log("Incoming Request")
+    console.log(":::> Incoming Request")
     const reqHeader = req.headers;
     if (reqHeader['x-connection-string'] && reqHeader['x-event'] == 'deployment') {
         const brand = reqHeader['x-brand'] || '' ;
         const type = reqHeader['x-type'] || 'azure';
         process.env.AZURE_STORAGE_CONNECTION_STRING = req.headers['x-connection-string'];
         configData.external = req.body ? [...req.body] : []
-        res.redirect(`/generateWebReport?hook=true&brand=${brand}&type=${type}`)
+        res.redirect(`${route.physicalReport}?hook=true&brand=${brand}&type=${type}`)
     } else {
         res.json({
             status: "failure",

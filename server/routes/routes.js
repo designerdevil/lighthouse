@@ -7,6 +7,7 @@ const azureController = require("../controller/azureController");
 const request = require("request");
 const getHrefs = require("get-hrefs");
 const { website } = require("../../config/urlConfig");
+const route = require("../constants/endpoints");
 
 
 module.exports = function (app) {
@@ -21,26 +22,26 @@ module.exports = function (app) {
                         return value
                 })
                 .filter((value) => value.charAt(0) == "/")
-            app.get("/", (req, res, next) => {
+            app.get(route.root, (req, res, next) => {
                 res.render("layouts/main", {
                     type: true,
                     website: website,
                     websiteURLs
                 });
             })
-            app.get("/webReport", virtualReportController)
+            app.get(route.webReport, virtualReportController)
             app.get("*", (req, res, next) => {
-                res.redirect("/")
+                res.redirect(route.root)
             })
         });
     } else {
-        app.get("/", reportListController)
-        app.get("/generateWebReport", physicalReportController)
-        app.get("/archive", archiveController)
-        app.get("/pushToAzure", azureController)
-        app.post("/hookme", hookController)
+        app.get(route.root, reportListController)
+        app.get(route.physicalReport, physicalReportController)
+        app.get(route.archive, archiveController)
+        app.get(route.azure, azureController)
+        app.post(route.hook, hookController)
         app.get("*", (req, res, next) => {
-            res.redirect("/")
+            res.redirect(route.root)
         })
     }
 };

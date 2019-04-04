@@ -1,7 +1,8 @@
 const defer = require("promise-defer");
 const opts = require("../../config/runtimeConfig");
 const configData = require("../../config/urlConfig");
-const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require("../utils/commonUtils")
+const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require("../utils/commonUtils");
+const route = require("../constants/endpoints");
 
 module.exports = (req, res, next) => {
     function urlIterator(condition, action) {
@@ -36,9 +37,9 @@ module.exports = (req, res, next) => {
                     resolve();
                     const { hook, type, brand } = req.query;
                     if (hook && type == 'azure') {
-                        res.redirect(`/pushToAzure?hook=true&report=${folderName}&brand=${brand}`)
+                        res.redirect(`${route.azure}?hook=true&report=${folderName}&brand=${brand}`)
                     } else {
-                        res.redirect("/")
+                        res.redirect(route.root)
                     }
                 })
                 .catch(error => {
