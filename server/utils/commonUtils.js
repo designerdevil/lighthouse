@@ -49,6 +49,11 @@ const commonUtil = {
         const dirName = new Date(dateStamp).toISOString();
         return dirName.replace(/:/g, '|');
     },
+    getLocalDate: function (dirName) {
+        const dateStamp = dirName.split("report-on-")[1]
+        const stampParser = new Date(`${dateStamp.replace(/\|/g, ':')}`).toLocaleString()
+        return stampParser;
+    },
     getUTCDate: function (dirName) {
         const utcStamp = dirName.split("report-on-")[1]
         return utcStamp.replace(/\|/g, ':');
