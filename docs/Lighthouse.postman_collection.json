@@ -19,12 +19,12 @@
 					{
 						"key": "x-event",
 						"type": "text",
-						"value": "deployment"
+						"value": "<deployment|view|generate>"
 					},
 					{
 						"key": "x-connection-string",
 						"type": "text",
-						"value": "<Secret Connection string>"
+						"value": "<SECRET AZURE CONNECTION STRING>"
 					},
 					{
 						"key": "x-brand",
@@ -39,7 +39,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"name\": \"Homepage\",\n        \"url\": \"https://website.com\"\n    }\n]"
+					"raw": "[\n    {\n        \"name\": \"Page name\",\n        \"url\": \"Page URL\"\n    }\n]"
 				},
 				"url": {
 					"raw": "http://localhost:4002/hookme",
