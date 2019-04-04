@@ -34,8 +34,9 @@ module.exports = (req, res, next) => {
             )
                 .then(() => {
                     resolve();
-                    if (req.query.hook) {
-                        res.redirect(`/pushToAzure?hook=true&report=${folderName}`)
+                    const { hook, type, brand } = req.query;
+                    if (hook && type == 'azure') {
+                        res.redirect(`/pushToAzure?hook=true&report=${folderName}&brand=${brand}`)
                     } else {
                         res.redirect("/")
                     }

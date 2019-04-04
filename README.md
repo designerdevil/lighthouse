@@ -26,7 +26,9 @@ Directly run audit on the urls provided in config and generate physical reports 
 Gather the url checklist from a post request with the ABS connection string in header. This will enable the system for report generation and pushing the physical reports to ABS.
 
 - make a ```POST``` request to ```/hookme``` endpoint of this application. Consider below pointers before triggering request
-- provide ```x-event = 'development``` and ```x-connection-string = <AZURE BLOB STORAGE CONNECTION STRING>```
+- provide ```x-event = 'deployment``` in headers for triggering webhook
+- provide ```x-connection-string = <AZURE BLOB STORAGE CONNECTION STRING>``` in headers for azure connection
+- provide ```x-brand = <Brand Name>``` in headers for report prefix (limit it to 10 chars, without any special characters, in lowercase)
 - provide array of url object in body   ```[{ "name": "Page Name"  ,  "url": "http://websiteurl.com" }, ...]```
 
 **For reference a postman data collection is present [here](https://github.com/designerdevil/lighthouse/blob/master/docs/Lighthouse.postman_collection.json)**
