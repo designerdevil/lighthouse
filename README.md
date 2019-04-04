@@ -35,7 +35,8 @@ Gather the url checklist from a post request with the ABS connection string in h
 
 ### How to start?   
 1. npm install
-2. npm start (production)    -OR-    npm run dev (development)
+2. npm run dev (development)
+3. npm run build && npm start (production)
 
 
 ### Configuration   
