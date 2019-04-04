@@ -1,15 +1,28 @@
 const configData = require("../../config/urlConfig");
 const route = require("../constants/endpoints");
+const { events } = require("../constants/appConstants");
 
 module.exports = (req, res, next) => {
     console.log(":::> Incoming Request")
     const reqHeader = req.headers;
-    if (reqHeader['x-connection-string'] && reqHeader['x-event'] == 'deployment') {
-        const brand = reqHeader['x-brand'] || '' ;
-        const type = reqHeader['x-type'] || 'azure';
-        process.env.AZURE_STORAGE_CONNECTION_STRING = req.headers['x-connection-string'];
-        configData.external = req.body ? [...req.body] : []
-        res.redirect(`${route.physicalReport}?hook=true&brand=${brand}&type=${type}`)
+    const brand = reqHeader['x-brand'] || '';
+    const type = reqHeader['x-type'] || 'azure';
+    const event = reqHeader['x-event'] || 'deployment';
+    const connectionString = reqHeader['x-connection-string'] || false;
+    configData.external = req.body ? [...req.body] : []
+
+
+    if (connectionString && event == events.deployment) {
+        process.env.AZURE_STORAGE_CONNECTION_STRING = connectionString;
+        res.redirect(`${route.physicalReport}?hook=true&brand=${brand}&event=${event}`)
+        return;
+    } else if (connectionString && event == events.view) {
+        process.env.AZURE_STORAGE_CONNECTION_STRING = connectionString;
+        res.redirect(`${route.azure}?hook=true&brand=${brand}&event=${event}`)
+        return;
+    } else if (event == events.generate) {
+        res.redirect(`${route.physicalReport}?hook=false&event=${event}`)
+        return;
     } else {
         res.json({
             status: "failure",
