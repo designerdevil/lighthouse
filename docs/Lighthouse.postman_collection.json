@@ -13,8 +13,8 @@
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
+						"value": "application/json",
+						"type": "text"
 					},
 					{
 						"key": "x-event",
@@ -24,12 +24,22 @@
 					{
 						"key": "x-connection-string",
 						"type": "text",
-						"value": "<Azure blob connection string goes here>"
+						"value": "<Secret Connection string>"
+					},
+					{
+						"key": "x-brand",
+						"value": "brand",
+						"type": "text"
+					},
+					{
+						"key": "x-type",
+						"value": "azure",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"name\": \"Website URL\",\n        \"url\": \"https://www.website.com/\"\n    }\n]"
+					"raw": "[\n    {\n        \"name\": \"Homepage\",\n        \"url\": \"https://website.com\"\n    }\n]"
 				},
 				"url": {
 					"raw": "http://localhost:4002/hookme",

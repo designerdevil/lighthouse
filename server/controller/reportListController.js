@@ -1,7 +1,8 @@
 const fs = require("fs");
 const paths = require("path");
-
 const { urls } = require("../../config/urlConfig");
+const { getLocalDate } = require("../utils/commonUtils");
+
 const url = new URL(urls[0].url);
 
 module.exports = (req, res, next) => {
@@ -14,11 +15,9 @@ module.exports = (req, res, next) => {
             fs.readdirSync(`${publicPath}/${dirName}`).forEach(file => {
                 fileNames.push(file)
             });
-
-            const dateStamp = dirName.split("-")[2]
-            const date = new Date(parseInt(dateStamp));
+            const stampParser = getLocalDate(dirName);
             dir.push({
-                dirDate: date,
+                dirDate: stampParser,
                 dirName,
                 fileNames,
                 hasFiles: (fileNames.length > 0)
