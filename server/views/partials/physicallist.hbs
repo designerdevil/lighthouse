@@ -1,4 +1,9 @@
+{{#if this.website}}
 <h1>Generated Reports for <span>{{website}}</span></h1>
+{{else}}
+<h1>Please configure urls</h1>
+{{/if}}
+{{#if this.website}}
 <table>
     <thead>
         <tr>
@@ -30,3 +35,4 @@
     </tbody>
 </table>
 <a href="/generateWebReport" class="primary">Trigger New</a>
+{{/if}}

@@ -1,3 +1,6 @@
+![Node version](https://img.shields.io/badge/node-%3E%3D10-green.svg) ![Webpack](https://img.shields.io/badge/tool-webpack-yellow.svg) ![Express](https://img.shields.io/badge/server-express-yellow.svg) ![lighthouse](https://img.shields.io/badge/package-lighthouse-lightgrey.svg)
+![lighthouse](https://img.shields.io/badge/build-docker-orange.svg)
+
 # lighthouse reporting tool   
 
 A simple tool for generating lighthouse audit reports for custom urls with checklist. This tool uses lighthouse cli and chrome launcher for outputing the report. Below are some features that are implemented in the system.
