@@ -40,12 +40,14 @@ module.exports = (req, res, next) => {
                     if (hook && event == events.deployment) {
                         res.redirect(`${route.azure}?hook=true&report=${folderName}&brand=${brand}&event=${event}`)
                     } else if (event == events.generate) {
+                        configData.hookInProgress = false;
                         res.json({
                             status: "success",
                             reportName: dirName,
                             message: `Directory generated in public repository ::> ${dirName}`
                         })
                     } else {
+                        configData.hookInProgress = false;
                         res.redirect(route.root)
                     }
                 })

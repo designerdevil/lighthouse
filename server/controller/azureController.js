@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
     const storage = require("azure-storage");
 
     if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
+        configData.hookInProgress = false;
         res.json({
             status: "fail",
             error: "Please provide AZURE connection string"
@@ -87,6 +88,7 @@ module.exports = (req, res, next) => {
                 console.log(response.message);
                 fileLen--
                 if (fileLen <= 0) {
+                    configData.hookInProgress = false;
                     rimraf(`${path}/${dirName}`, function () {
                         const archiveFile = `${path}/${dirName}.zip`;
                         if (fs.existsSync(archiveFile)) {

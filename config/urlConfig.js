@@ -6,5 +6,6 @@ module.exports = {
             url: "" //ENTER PAGE URL HERE
         }
     ],
-    external: []
+    external: [],
+    hookInProgress: false,
 }
