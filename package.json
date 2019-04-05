@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "npm install && npm run build",
     "start": "PORT=4002 node ./public/server.js",
     "dev": "PORT=4002 nodemon ./server/server.js",
     "build": "webpack --config ./webpack.config.js --mode production"
