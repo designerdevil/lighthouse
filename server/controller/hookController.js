@@ -15,7 +15,8 @@ module.exports = (req, res, next) => {
         res.json({
             status: "error",
             message: "Another hook is in progress. Please try after sometime"
-        })
+        });
+        return;
     }
     configData.hookInProgress = true;
     if (connectionString && event == events.deployment) {
