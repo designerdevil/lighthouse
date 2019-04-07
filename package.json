@@ -9,6 +9,7 @@
     "build": "webpack --config ./webpack.config.js --mode production"
   },
   "dependencies": {
+    "@google-cloud/storage": "^2.5.0",
     "archiver": "^3.0.0",
     "azure-storage": "^2.10.2",
     "chrome-launcher": "^0.10.5",
