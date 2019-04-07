@@ -13,7 +13,7 @@ const route = require("../constants/endpoints");
 module.exports = function (app) {
     let websiteURLs;
     if (website) {
-        request(website, function (error, response, body) {
+        request(website, function (error, response, body = "") {
             websiteURLs = getHrefs(body)
                 .map((value, index) => {
                     if (value.indexOf(website) != -1)
@@ -26,6 +26,7 @@ module.exports = function (app) {
                 res.render("layouts/main", {
                     type: true,
                     website: website,
+                    hasURL: !!websiteURLs.length,
                     websiteURLs
                 });
             })

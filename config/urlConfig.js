@@ -1,5 +1,5 @@
 module.exports = {
-    // website: '<ENTER WEBSITE URI HERE>',
+    website: '',
     urls: [
         {
             name: "", //ENTER PAGE NAME HERE
