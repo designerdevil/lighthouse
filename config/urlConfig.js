@@ -1,5 +1,5 @@
 module.exports = {
-    website: '',
+    // website: '', //ENTER WEBSITE URL HERE TO SCAN
     urls: [
         {
             name: "", //ENTER PAGE NAME HERE
