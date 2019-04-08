@@ -7,6 +7,9 @@ const url = urls[0].url ? new URL(urls[0].url) : {};
 
 module.exports = (req, res, next) => {
     const publicPath = "./public"
+    if (!fs.existsSync(publicPath)){
+        fs.mkdirSync(publicPath);
+    }
     const dir = []
     fs.readdirSync(publicPath).forEach(dirName => {
         const fileNames = [];
