@@ -20,7 +20,6 @@ RUN mkdir -p /lighthouse
 WORKDIR /lighthouse
 
 COPY config /lighthouse/config
-COPY public /lighthouse/public
 COPY server /lighthouse/server
 
 COPY webpack.config.js /lighthouse/webpack.config.js
