@@ -3,7 +3,7 @@ const opts = require("../../config/runtimeConfig");
 const configData = require("../../config/urlConfig");
 const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require("../utils/commonUtils");
 const route = require("../constants/endpoints");
-const { events } = require("../constants/appConstants");
+const { types, events } = require("../constants/appConstants");
 
 module.exports = (req, res, next) => {
     function urlIterator(condition, action) {
@@ -38,7 +38,11 @@ module.exports = (req, res, next) => {
                     resolve();
                     const { hook, type, brand, event } = req.query;
                     if (hook && event == events.deployment) {
-                        res.redirect(`${route.azure}?hook=true&report=${folderName}&brand=${brand}&event=${event}`)
+                        if (type == types.azure) {
+                            res.redirect(`${route.azure}?hook=true&report=${folderName}&brand=${brand}&event=${event}`)
+                        } else if (type == types.gcp) {
+                            res.redirect(`${route.gcp}?hook=true&report=${folderName}&brand=${brand}&event=${event}`)
+                        }
                     } else if (event == events.generate) {
                         configData.hookInProgress = false;
                         res.json({

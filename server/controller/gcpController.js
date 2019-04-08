@@ -4,99 +4,56 @@ const configData = require("../../config/urlConfig");
 const { getUTCDate, sanitizeDirName } = require("../utils/commonUtils");
 const route = require("../constants/endpoints");
 const { events } = require("../constants/appConstants");
+const { Storage } = require('@google-cloud/storage');
 
 module.exports = (req, res, next) => {
     const event = req.query.event;
     const path = require("path");
-    const storage = require("azure-storage");
+    const dirName = req.query.report;
 
-    if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
-        configData.hookInProgress = false;
-        res.json({
-            status: "fail",
-            error: "Please provide AZURE connection string"
-        });
-        return;
-    }
+    const storage = new Storage({
+        projectId: 'audit-report-236705',
+        keyFilename: './key/audit-report-ae233ce12244.json'
+    })
 
-    const blobService = storage.createBlobService();
-
-    const listContainers = async () => {
-        return new Promise((resolve, reject) => {
-            blobService.listContainersSegmented(null, (err, data) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({ message: `${data.entries.length} containers`, containers: data.entries });
-                }
-            });
-        });
+    const uploadLocalFile = async (bucketName, filePath) => {
+        var myBucket = storage.bucket(bucketName)
+        myBucket.upload(filePath, {
+            gzip: true,
+            metadata: {
+                cacheControl: 'public, max-age=31536000',
+            },
+        })
     };
-
-    const createContainer = async (containerName) => {
-        return new Promise((resolve, reject) => {
-            blobService.createContainerIfNotExists(containerName, { publicAccessLevel: "blob" }, err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({ message: `Container "${containerName}" created` });
-                }
-            });
-        });
-    };
-
-    const uploadLocalFile = async (containerName, filePath) => {
-        return new Promise((resolve, reject) => {
-            const fullPath = path.resolve(filePath);
-            const blobName = path.basename(filePath);
-            blobService.createBlockBlobFromLocalFile(containerName, blobName, fullPath, err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({ message: `Local file "${blobName}" is uploaded` });
-                }
-            });
-        });
-    };
-
 
     if (event == events.deployment) {
-        const dirName = req.query.report;
         const dirObj = {
             status: "success",
             reportName: `${req.query.brand}-${sanitizeDirName(dirName)}`,
             isoDate: getUTCDate(dirName)
         }
 
-        const execute = async () => {
-            const path = "./public"
-            let response;
+        // The name for the new bucket
+        const bucketName = dirObj.reportName;
 
-            console.log("Containers Found ::");
-            response = await listContainers();
-            response.containers.forEach((container) => console.log(` -  ${container.name}`));
-            const containerList = response.containers;
-            const containerDoesNotExist = containerList.findIndex((container) => container.name === dirObj.reportName) === -1;
+        storage.createBucket(bucketName).then(() => {
+            const rootPath = "./public"
+            console.log(`Bucket ${bucketName} created.`);
 
-            if (containerDoesNotExist) {
-                await createContainer(dirObj.reportName);
-                console.log(`Container "${dirObj.reportName}" is created`);
-            }
-            let fileLen = fs.readdirSync(`${path}/${dirName}`).length;
-            fs.readdirSync(`${path}/${dirName}`).forEach(async (file) => {
-                response = await uploadLocalFile(dirObj.reportName, `${path}/${dirName}/${file}`);
-                console.log(response.message);
+            const dirName = req.query.report;
+            let fileLen = fs.readdirSync(`${rootPath}/${dirName}`).length;
+            fs.readdirSync(`${rootPath}/${dirName}`).forEach(async (file) => {
+                uploadLocalFile(dirObj.reportName, `${rootPath}/${dirName}/${file}`);
                 fileLen--
                 if (fileLen <= 0) {
                     configData.hookInProgress = false;
-                    rimraf(`${path}/${dirName}`, function () {
-                        const archiveFile = `${path}/${dirName}.zip`;
+                    rimraf(`${rootPath}/${dirName}`, function () {
+                        const archiveFile = `${rootPath}/${dirName}.zip`;
                         if (fs.existsSync(archiveFile)) {
                             rimraf(archiveFile, function () {
                                 console.log(`Archive Deleted ${dirName}.zip`);
                                 if (req.query.hook) {
                                     res.json(dirObj)
-                                    delete process.env.AZURE_STORAGE_CONNECTION_STRING
                                     configData.external = []
                                 } else
                                     res.redirect(route.root);
@@ -104,7 +61,6 @@ module.exports = (req, res, next) => {
                         } else {
                             if (req.query.hook) {
                                 res.json(dirObj)
-                                delete process.env.AZURE_STORAGE_CONNECTION_STRING
                                 configData.external = []
                             } else
                                 res.redirect(route.root);
@@ -112,25 +68,10 @@ module.exports = (req, res, next) => {
                     });
                 }
             });
-
-        }
-
-        execute().then(() => {
-            console.log(`"${dirObj.reportName}" :::: Pushing to Azure...`)
-        }).catch((e) => {
-            res.send(e)
-        });
-    } else {
-        const execute = async () => {
-            let response;
-            response = await listContainers();
-            const containerList = response.containers;
-            res.json(containerList)
-        }
-        execute().then(() => {
-            //do something
-        }).catch((e) => {
-            res.send(e)
+        }).catch(err => {
+            console.error('ERROR:', err);
+            res.send(err);
         });
     }
+
 }
