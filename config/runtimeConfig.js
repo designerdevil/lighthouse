@@ -1,5 +1,5 @@
 module.exports = {
-    output: "html",
+    output: ["html", "json"], /*["csv", "json", "html"]*/
     chromeFlags: ["--headless"],
     logLevel: "info",
     onlyCategories: [
