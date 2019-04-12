@@ -25,9 +25,9 @@ module.exports = (req, res, next) => {
             res.redirect(`${route.physicalReport}?hook=true&brand=${brand}&event=${event}&type=${type}`)
             return;
         } else if (connectionString && event == events.view) {
-                process.env.AZURE_STORAGE_CONNECTION_STRING = connectionString;
-                res.redirect(`${route.azure}?hook=true&brand=${brand}&event=${event}`)
-                return;
+            process.env.AZURE_STORAGE_CONNECTION_STRING = connectionString;
+            res.redirect(`${route.azure}?hook=true&brand=${brand}&event=${event}`)
+            return;
         } else if (event == events.generate) {
             res.redirect(`${route.physicalReport}?hook=false&event=${event}&type=${type}`)
             return;
@@ -40,7 +40,16 @@ module.exports = (req, res, next) => {
             return;
         }
     } else if (type == types.gcp) {
-        res.redirect(`${route.physicalReport}?hook=true&brand=${brand}&event=${event}&type=${type}`)
-        return;
+        if (connectionString && event == events.deployment) {
+            process.env.GCP_PROJECT_STRING = connectionString;
+            res.redirect(`${route.physicalReport}?hook=true&brand=${brand}&event=${event}&type=${type}&project=${connectionString}`)
+            return;
+        } else {
+            res.json({
+                status: "failure",
+                error: (!connectionString) ? "Please provide Project ID for GCS" : "Provide correct deployment hook header"
+            });
+            return;
+        }
     }
 }

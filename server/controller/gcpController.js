@@ -7,13 +7,20 @@ const { events } = require("../constants/appConstants");
 const { Storage } = require('@google-cloud/storage');
 
 module.exports = (req, res, next) => {
+    if (!process.env.GCP_PROJECT_STRING) {
+        configData.hookInProgress = false;
+        res.json({
+            status: "fail",
+            error: "Please provide GCP Project name in Connection string header"
+        });
+        return;
+    }
     const event = req.query.event;
-    const path = require("path");
     const dirName = req.query.report;
 
     const storage = new Storage({
-        projectId: 'audit-report-236705',
-        keyFilename: './key/audit-report-ae233ce12244.json'
+        projectId: process.env.GCP_PROJECT_STRING,
+        keyFilename: './key/key.json'
     })
 
     const uploadLocalFile = async (bucketName, filePath) => {
@@ -22,7 +29,7 @@ module.exports = (req, res, next) => {
             gzip: true,
             metadata: {
                 cacheControl: 'public, max-age=31536000',
-            },
+            }
         })
     };
 
@@ -54,6 +61,7 @@ module.exports = (req, res, next) => {
                                 console.log(`Archive Deleted ${dirName}.zip`);
                                 if (req.query.hook) {
                                     res.json(dirObj)
+                                    delete process.env.GCP_PROJECT_STRING
                                     configData.external = []
                                 } else
                                     res.redirect(route.root);
@@ -61,6 +69,7 @@ module.exports = (req, res, next) => {
                         } else {
                             if (req.query.hook) {
                                 res.json(dirObj)
+                                delete process.env.GCP_PROJECT_STRING
                                 configData.external = []
                             } else
                                 res.redirect(route.root);
@@ -70,6 +79,7 @@ module.exports = (req, res, next) => {
             });
         }).catch(err => {
             console.error('ERROR:', err);
+            delete process.env.GCP_PROJECT_STRING
             res.send(err);
         });
     }
