@@ -27,5 +27,11 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.9"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "public",
+      "node_modules/**/node_modules"
+    ]
   }
 }

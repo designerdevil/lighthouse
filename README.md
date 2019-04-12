@@ -31,6 +31,7 @@ Gather the url checklist from a post request with the ABS connection string in h
 - make a ```POST``` request to ```/hookme``` endpoint of this application. Consider below pointers before triggering request
 - provide ```x-event = 'deployment``` in headers for triggering webhook
 - provide ```x-connection-string = <AZURE BLOB STORAGE CONNECTION STRING>``` in headers for azure connection
+- provide ```x-type = azure``` for defining the type of storage
 - provide ```x-brand = <Brand Name>``` in headers for report prefix (limit it to 10 chars, without any special characters, in lowercase)
 - provide array of url object in body   ```[{ "name": "Page Name"  ,  "url": "http://websiteurl.com" }, ...]```
 

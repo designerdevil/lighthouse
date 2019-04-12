@@ -27,7 +27,9 @@ module.exports = (req, res, next) => {
                     const url = urlObj.url;
                     const name = urlObj.name && urlObj.name.toLowerCase().replace(/ /g, "-");
                     return launchChromeAndRunLighthouse(url, opts, (report) => {
-                        writeFile(`${dirName}/${name}.html`, report)
+                        for (let i = 0, length = opts.output.length; i < length; i++) {
+                            writeFile(`${dirName}/${name}.${opts.output[i]}`, report[i]);
+                        }
                     }).then(results => {
                         console.log(`Report Saved for ${name}`)
                         urlArrayPosition++;
