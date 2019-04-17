@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     })
 
     const uploadLocalFile = async (bucketName, filePath) => {
-        var myBucket = storage.bucket(bucketName)
+        const myBucket = storage.bucket(bucketName)
         myBucket.upload(filePath, {
             gzip: true,
             metadata: {

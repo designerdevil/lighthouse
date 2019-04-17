@@ -5,5 +5,6 @@ module.exports = {
     azure: "/pushToAzure",
     gcp: "/pushToGCP",
     hook: "/hookme",
-    webReport: "/webReport"
+    webReport: "/webReport",
+    view: "/hookview"
 }

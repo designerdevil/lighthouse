@@ -1,6 +1,8 @@
 const chromeLauncher = require("chrome-launcher");
 const lighthouse = require("lighthouse");
 const fs = require("fs");
+const rimraf = require("rimraf");
+var zlib = require("zlib");
 
 const commonUtil = {
     launchChromeAndRunLighthouse: function (url, opts, callback, config = null) {
@@ -13,10 +15,22 @@ const commonUtil = {
             });
         });
     },
-    writeFile: function (path, content) {
+    writeFile: function (path, content, shouldGzip) {
         fs.writeFile(path, content, function (fileerr) {
             if (fileerr) {
                 return console.log(`Unable to write file ::> ${fileerr}`);
+            }
+            if (shouldGzip) {
+                var gzip = zlib.createGzip();
+                var readStream = fs.createReadStream(path);
+                var writeStream = fs.createWriteStream(`${path}.js`);
+                readStream.pipe(gzip).pipe(writeStream);
+                rimraf(path, function () {
+                    fs.rename(`${path}.js`, path, function (err) {
+                        if (err) throw err;
+                        console.log('File Renamed.');
+                    });
+                });
             }
         });
     },
