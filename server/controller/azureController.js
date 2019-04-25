@@ -49,7 +49,12 @@ module.exports = (req, res, next) => {
         return new Promise((resolve, reject) => {
             const fullPath = path.resolve(filePath);
             const blobName = path.basename(filePath);
-            blobService.createBlockBlobFromLocalFile(containerName, blobName, fullPath, err => {
+            const options = {
+                contentSettings: {
+                    contentEncoding: 'gzip'
+                }
+            }
+            blobService.createBlockBlobFromLocalFile(containerName, blobName, fullPath, options, err => {
                 if (err) {
                     reject(err);
                 } else {

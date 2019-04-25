@@ -33,19 +33,37 @@ Gather the url checklist from a post request with the ABS connection string in h
 - provide ```x-connection-string = <AZURE BLOB STORAGE CONNECTION STRING>``` in headers for azure connection
 - provide ```x-type = azure``` for defining the type of storage
 - provide ```x-brand = <Brand Name>``` in headers for report prefix (limit it to 10 chars, without any special characters, in lowercase)
+- provide array of url object in body   ```[{ "name": "Page Name"  ,  "url": "http://websiteurl.com" }, ...]```   
+
+
+## Webhook Support + Google Cloud Storage(GCS)
+Gather the url checklist from a post request with the GCS project id in header. This will enable the system for report generation and pushing the physical reports to GCS.
+
+- Use the GCS provided key for enabling GCS support. As mentioned [here](https://github.com/designerdevil/lighthouse/blob/master/key/)
+- make a ```POST``` request to ```/hookme``` endpoint of this application. Consider below pointers before triggering request
+- provide ```x-event = 'deployment``` in headers for triggering webhook
+- provide ```x-connection-string = <GCS PROJECT ID>``` in headers for azure connection
+- provide ```x-type = gcp``` for defining the type of storage
+- provide ```x-brand = <Brand Name>``` in headers for report prefix (limit it to 10 chars, without any special characters, in lowercase)
 - provide array of url object in body   ```[{ "name": "Page Name"  ,  "url": "http://websiteurl.com" }, ...]```
 
 **For reference a postman data collection is present [here](https://github.com/designerdevil/lighthouse/blob/master/docs/Lighthouse.postman_collection.json)**
 
+## Chart for existing AZURE & GCS reports
+- Make GET call with specific headers, as mentioned in the [POSTMAN Collection](https://github.com/designerdevil/lighthouse/blob/master/docs/Lighthouse.postman_collection.json)
+- Use ```/viewform``` route for viewing the Filter form. On submit you can view the Chart generated according to your filters.
+
+![Filter Form](https://github.com/designerdevil/lighthouse/blob/master/docs/viewform.png)  
+![Filtered Chart](https://github.com/designerdevil/lighthouse/blob/master/docs/chart.png)
 
 
-### How to start?   
+## How to start?   
 1. npm install
 2. npm run dev (development)
 3. npm run build && npm start (production)
 
 
-### Configuration   
+## Configuration   
 By default the audit runs on below parameters
 - Performance
 - PWA
@@ -54,11 +72,11 @@ By default the audit runs on below parameters
 - Accessibility
 
 Change the runtimeConfig file for your feature output
-```config > runtimeConfig.js```
+```config > chromeConfig.js```
 
 
 
-### Dockerized Solution
+## Dockerized Solution
 - Create a build from the docker file included   
 ```docker build -t <image name> .```
 - Alter and run below command for running the image through a container.   

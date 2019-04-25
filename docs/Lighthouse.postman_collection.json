@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Performance Hook",
+			"name": "Deployment Hook GCP",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -19,27 +19,27 @@
 					{
 						"key": "x-event",
 						"type": "text",
-						"value": "<deployment|view|generate>"
+						"value": "deployment"
 					},
 					{
 						"key": "x-connection-string",
 						"type": "text",
-						"value": "<SECRET AZURE CONNECTION STRING>"
+						"value": "<YOUR GCP PROJECT ID>"
 					},
 					{
 						"key": "x-brand",
-						"value": "brand",
+						"value": "<brandname>",
 						"type": "text"
 					},
 					{
 						"key": "x-type",
-						"value": "azure",
+						"value": "gcp",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"name\": \"Page name\",\n        \"url\": \"Page URL\"\n    }\n]"
+					"raw": "[\n    {\n        \"name\": \"Page Name\",\n        \"url\": \"http://www.<brandname>.com/\"\n    },\n    {\n        \"name\": \"Sign in\",\n        \"url\": \"http://www.<brandname>.com/\"\n    }\n]"
 				},
 				"url": {
 					"raw": "http://localhost:4002/hookme",
@@ -50,6 +50,159 @@
 					"port": "4002",
 					"path": [
 						"hookme"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Hook GCP",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-event",
+						"type": "text",
+						"value": "view"
+					},
+					{
+						"key": "x-connection-string",
+						"type": "text",
+						"value": "<YOUR GCP PROJECT ID>"
+					},
+					{
+						"key": "x-brand",
+						"type": "text",
+						"value": "<brandname>"
+					},
+					{
+						"key": "x-type",
+						"type": "text",
+						"value": "gcp"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4002/hookview",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"hookview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deployment  Hook AZURE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-event",
+						"type": "text",
+						"value": "deployment"
+					},
+					{
+						"key": "x-connection-string",
+						"type": "text",
+						"value": "<YOUR AZURE BLOB STORAGE CONNECTION STRING>"
+					},
+					{
+						"key": "x-brand",
+						"type": "text",
+						"value": "<brandname>"
+					},
+					{
+						"key": "x-type",
+						"type": "text",
+						"value": "azure"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Homepage\",\n        \"url\": \"https://<brandname>.com/en/\"\n    }\n]"
+				},
+				"url": {
+					"raw": "http://localhost:4002/hookme",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"hookme"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Hook AZURE",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-event",
+						"type": "text",
+						"value": "view"
+					},
+					{
+						"key": "x-connection-string",
+						"type": "text",
+						"value": "<YOUR AZURE BLOB STORAGE CONNECTION STRING>"
+					},
+					{
+						"key": "x-brand",
+						"type": "text",
+						"value": "<brandname>"
+					},
+					{
+						"key": "x-type",
+						"type": "text",
+						"value": "azure"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4002/hookview",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"hookview"
 					]
 				}
 			},

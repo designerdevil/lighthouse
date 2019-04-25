@@ -2,9 +2,12 @@ const virtualReportController = require("../controller/virtualReportController")
 const physicalReportController = require("../controller/physicalReportController");
 const reportListController = require("../controller/reportListController");
 const hookController = require("../controller/hookController");
+const hookViewController = require("../controller/hookViewController");
 const archiveController = require("../controller/archiveController");
 const azureController = require("../controller/azureController");
 const gcpController = require("../controller/gcpController");
+const viewUIFormController = require("../controller/viewUIFormController");
+const viewUIController = require("../controller/viewUIController");
 const request = require("request");
 const getHrefs = require("get-hrefs");
 const { website } = require("../../config/urlConfig");
@@ -42,6 +45,9 @@ module.exports = function (app) {
         app.get(route.archive, archiveController)
         app.get(route.azure, azureController)
         app.get(route.gcp, gcpController)
+        app.get(route.view, hookViewController)
+        app.get(route.viewUIForm, viewUIFormController)
+        app.post(route.viewUI, viewUIController)
         app.post(route.hook, hookController)
         app.get("*", (req, res, next) => {
             res.redirect(route.root)
