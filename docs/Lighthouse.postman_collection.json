@@ -82,7 +82,7 @@
 					{
 						"key": "x-brand",
 						"type": "text",
-						"value": "gaur"
+						"value": "<brandname>"
 					},
 					{
 						"key": "x-type",
