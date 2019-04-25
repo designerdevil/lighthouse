@@ -1,5 +1,5 @@
 
-##HOW TO DEPLOY  
+### HOW TO DEPLOY  
 
 Steps to deploy the application to Kubernetes through GCP Cloud shell.
 
