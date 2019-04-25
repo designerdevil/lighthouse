@@ -6,5 +6,7 @@ module.exports = {
     gcp: "/pushToGCP",
     hook: "/hookme",
     webReport: "/webReport",
-    view: "/hookview"
+    view: "/hookview",
+    viewUIForm: "/viewform",
+    viewUI: "/generatetimeline"
 }

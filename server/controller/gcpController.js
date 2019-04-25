@@ -1,4 +1,5 @@
 const fs = require("fs");
+var path = require("path");
 const rimraf = require("rimraf");
 const configData = require("../../config/urlConfig");
 const { getUTCDate, sanitizeDirName } = require("../utils/commonUtils");
@@ -24,12 +25,16 @@ module.exports = (req, res, next) => {
     })
 
     const uploadLocalFile = async (bucketName, filePath) => {
-        const myBucket = storage.bucket(bucketName)
-        myBucket.upload(filePath, {
+        const bucket = storage.bucket(bucketName)
+        const fileName = path.basename(filePath);
+        const file = bucket.file(fileName);
+        bucket.upload(filePath, {
             gzip: true,
             metadata: {
                 cacheControl: 'public, max-age=31536000',
             }
+        }).then(() => {
+            file.makePublic()
         })
     };
 
@@ -43,7 +48,16 @@ module.exports = (req, res, next) => {
         // The name for the new bucket
         const bucketName = dirObj.reportName;
 
-        storage.createBucket(bucketName).then(() => {
+        storage.createBucket(bucketName, {
+            cors: [
+                {
+                    origin: ["http://localhost:4002"],
+                    method: ["GET"],
+                    responseHeader: ["Content-Type"],
+                    maxAgeSeconds: 3600
+                }
+            ]
+        }).then(() => {
             const rootPath = "./public"
             console.log(`Bucket ${bucketName} created.`);
 
