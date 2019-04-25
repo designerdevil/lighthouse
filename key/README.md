@@ -1,6 +1,8 @@
 ## Provide GCP key here
 
-If you want to use a GCP hook for generating the assets and uploading it on GCP account. A JSON key is required. Rename that file to key.json   
+If you want to use a GCP hook for generating the assets and uploading it on GCP account. A JSON key is required.   
+
+**Note: Rename that file to key.json**   
 
 ### What should be inside of key.json
 ```
