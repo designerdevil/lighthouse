@@ -17,7 +17,7 @@
     "express": "~4.16.0",
     "get-hrefs": "^4.0.0",
     "hbs": "^4.0.4",
-    "lighthouse": "^4.3.0",
+    "lighthouse": "^9.6.7",
     "promise-defer": "^1.0.0",
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
