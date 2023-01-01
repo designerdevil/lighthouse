@@ -21,8 +21,8 @@
     "promise-defer": "^1.0.0",
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
