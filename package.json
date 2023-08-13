@@ -1,11 +1,12 @@
 {
-  "name": "86164",
-  "version": "0.0.0",
+  "name": "LighthouseReportGenerator",
+  "version": "1.0.0",
+  "author": "G@ur@v M@ll",
   "private": true,
   "scripts": {
     "test": "npm install && npm run build",
-    "start": "PORT=4002 node ./public/server.js",
-    "dev": "PORT=4002 nodemon ./server/server.js",
+    "start": "set \"PORT=4002\" && node ./public/server.js",
+    "dev": "set \"PORT=4002\" && nodemon ./server/server.js",
     "build": "webpack --config ./webpack.config.js --mode production"
   },
   "dependencies": {

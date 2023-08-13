@@ -3,7 +3,7 @@ const paths = require("path");
 const { urls } = require("../../config/urlConfig");
 const { getLocalDate } = require("../utils/commonUtils");
 
-const url = urls[0].url ? new URL(urls[0].url) : {};
+const url = (urls && urls[0].url) ? "URL List" : "Unknown";
 
 module.exports = (req, res, next) => {
     const publicPath = "./public"
@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
     });
     res.render("layouts/main", {
         type: false,
-        website: url.hostname || false,
+        website: url || false,
         dir
     });
 }

@@ -1,7 +1,6 @@
 const defer = require("promise-defer");
 const opts = require("../../config/runtimeConfig");
 const configData = require("../../config/urlConfig");
-const config = require("../../config/chromeConfig");
 const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require("../utils/commonUtils");
 const route = require("../constants/endpoints");
 const { types, events } = require("../constants/appConstants");
@@ -33,7 +32,7 @@ module.exports = (req, res, next) => {
                         for (let i = 0, length = opts.output.length; i < length; i++) {
                             writeFile(`${dirName}/${name}.${opts.output[i]}`, report[i], shouldGzip);
                         }
-                    }, config).then(results => {
+                    }).then(results => {
                         console.log(`Report Saved for ${name}`)
                         urlArrayPosition++;
                     })

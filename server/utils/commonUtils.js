@@ -5,15 +5,13 @@ const rimraf = require("rimraf");
 var zlib = require("zlib");
 
 const commonUtil = {
-    launchChromeAndRunLighthouse: function (url, opts, callback, config = null) {
-        return chromeLauncher.launch({ chromeFlags: opts.chromeFlags }).then(chrome => {
-            opts.port = chrome.port;
-            return lighthouse(url, opts, config).then(results => {
-                report = results.report;
-                callback(report);
-                return chrome.kill().then(() => results.lhr)
-            });
-        });
+    launchChromeAndRunLighthouse: async function (url, opts, callback) {
+        const chrome = await chromeLauncher.launch({chromeFlags: ['--headless', '--disable-gpu']});
+        const options = {port: chrome.port, ...opts};
+        const runnerResult = await lighthouse(url, options);
+        const report = await runnerResult.report;
+        callback(report);
+        await chrome.kill();
     },
     writeFile: function (path, content, shouldGzip) {
         fs.writeFile(path, content, function (fileerr) {
@@ -61,19 +59,19 @@ const commonUtil = {
     },
     getMomentDate: function (dateStamp) {
         const dirName = new Date(dateStamp).toISOString();
-        return dirName.replace(/:/g, '|');
+        return dirName.replace(/:/g, '_');
     },
     getLocalDate: function (dirName) {
         const dateStamp = dirName.split("report-on-")[1]
-        const stampParser = new Date(`${dateStamp.replace(/\|/g, ':')}`).toLocaleString()
+        const stampParser = new Date(`${dateStamp.replace(/\_/g, ':')}`).toLocaleString()
         return stampParser;
     },
     getUTCDate: function (dirName) {
         const utcStamp = dirName.split("report-on-")[1]
-        return utcStamp.replace(/\|/g, ':');
+        return utcStamp.replace(/\_/g, ':');
     },
     sanitizeDirName: function (dirName) {
-        const newDname = dirName.replace(/\|/g, '-').replace(/\./g, '-').toLowerCase();
+        const newDname = dirName.replace(/\_/g, '-').replace(/\./g, '-').toLowerCase();
         console.log(newDname)
         return newDname
     }

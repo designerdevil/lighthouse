@@ -72,7 +72,7 @@ By default the audit runs on below parameters
 - Accessibility
 
 Change the runtimeConfig file for your feature output
-```config > chromeConfig.js```
+```config > runtimeConfig.js```
 
 
 
