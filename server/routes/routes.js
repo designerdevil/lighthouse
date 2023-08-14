@@ -49,9 +49,9 @@ module.exports = function (app) {
         app.get(route.viewUIForm, viewUIFormController)
         app.post(route.viewUI, viewUIController)
         app.post(route.hook, hookController)
-        app.get("*", (req, res, next) => {
-            res.redirect(route.root)
-        })
+        // app.get("*", (req, res, next) => {
+        //     res.redirect(route.root)
+        // })
     }
 };
 

@@ -4,35 +4,44 @@
 <h1>Configure urls <br><br> OR <br><br> use Hooks</h1>
 {{/if}}
 {{#if this.website}}
-<table>
-    <thead>
-        <tr>
-            <th>
-                Report Date
-            </th>
-            <th>
-                Files
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each dir}}
-            <tr>
-            <td>{{this.dirDate}}</td>
-            <td>{{this.fileNames.length}}</td>
-            <td>
-                {{#if this.hasFiles}}
-                    <a href='/archive?report={{this.dirName}}'>Download Zip</a>
-                    {{!-- <a href='/pushToAzure?report={{this.dirName}}'>Push to Azure</a> --}}
-                {{/if}}
-                <a href='/archive?type=delete&report={{this.dirName}}'>Delete</a>
-            </td>
-            </tr>
-        {{/each}}
-    </tbody>
-</table>
+    {{#if dir.length}}
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        File Count
+                    </th>
+                    <th>
+                        Report Generated On
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each dir}}
+                    <tr>
+                    <td>{{this.fileNames.length}}</td>
+                    <td>{{this.dirDate}}</td>
+                    <td>
+                        {{#if this.hasFiles}}
+                            <a href='/archive?report={{this.dirName}}'>Download Zip</a>
+                            {{!-- <a href='/pushToAzure?report={{this.dirName}}'>Push to Azure</a> --}}
+                        {{/if}}
+                        <a href='/archive?type=delete&report={{this.dirName}}'>Delete</a>
+                        <div class="open-file">
+                        {{#each this.fileNames}}
+                            <a href="/{{../this.dirName}}/{{this}}" target="_blank">{{this}}</a>
+                        {{/each}}
+                        </div>
+                    </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <div class="no-results">NO RESULTS FOUND!!</div>
+    {{/if}}
 <a href="/generateWebReport" class="primary">Run report</a>
 {{/if}}
