@@ -1,20 +1,21 @@
-const virtualReportController = require("../controller/virtualReportController");
-const physicalReportController = require("../controller/physicalReportController");
-const reportListController = require("../controller/reportListController");
-const hookController = require("../controller/hookController");
-const hookViewController = require("../controller/hookViewController");
-const archiveController = require("../controller/archiveController");
-const azureController = require("../controller/azureController");
-const gcpController = require("../controller/gcpController");
-const viewUIFormController = require("../controller/viewUIFormController");
-const viewUIController = require("../controller/viewUIController");
-const request = require("request");
-const getHrefs = require("get-hrefs");
-const { website } = require("../../config/urlConfig");
-const route = require("../constants/endpoints");
+import virtualReportController from "../controller/virtualReportController.js";
+import physicalReportController from "../controller/physicalReportController.js";
+import reportListController from "../controller/reportListController.js";
+import hookController from "../controller/hookController.js";
+import hookViewController from "../controller/hookViewController.js";
+import archiveController from "../controller/archiveController.js";
+import azureController from "../controller/azureController.js";
+import gcpController from "../controller/gcpController.js";
+import viewUIFormController from "../controller/viewUIFormController.js";
+import viewUIController from "../controller/viewUIController.js";
+import request from "request"
+import getHrefs from "get-hrefs"
+import urlConfig from "../../config/urlConfig.js"
+import route from "../constants/endpoints.js"
 
 
-module.exports = function (app) {
+export default function (app) {
+    const { website } = urlConfig;
     let websiteURLs;
     if (website) {
         request(website, function (error, response, body = "") {

@@ -1,28 +1,29 @@
-const path = require("path");
-const fs = require("fs");
-const archiver = require("archiver");
-var rimraf = require("rimraf");
-const route = require("../constants/endpoints");
+import path from "path"
+import fs from "fs"
+import archiver from "archiver"
+import { rimrafSync } from "rimraf"
+import { fileURLToPath } from 'url';
+import route from "../constants/endpoints.js"
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
     const reportName = req.query.report;
     const zippath = `public/${reportName}.zip`
     const type = req.query.type;
 
     if (type == "delete") {
 
-        rimraf(`./public/${reportName}`, () => {
-            const archiveFile = `./public/${reportName}.zip`;
-            if (fs.existsSync(archiveFile)) {
-                rimraf(archiveFile, () => {
-                    console.log("Archive Deleted");
-                    res.redirect(route.root);
-                });
-            } else {
-                console.log("File Deleted");
-                res.redirect(route.root);
-            }
-        });
+        rimrafSync(`./public/${reportName}`);
+        const archiveFile = `./public/${reportName}.zip`;
+        if (fs.existsSync(archiveFile)) {
+            rimrafSync(archiveFile);
+            console.log("Archive Deleted");
+            res.redirect(route.root);
+        } else {
+            console.log("File Deleted");
+            res.redirect(route.root);
+        }
 
     } else {
 

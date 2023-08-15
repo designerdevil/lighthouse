@@ -1,11 +1,12 @@
-const fs = require("fs");
-const paths = require("path");
-const { urls } = require("../../config/urlConfig");
-const { getLocalDate } = require("../utils/commonUtils");
+import fs from "fs";
+import paths from "path";
+import urlConfig from "../../config/urlConfig.js";
+import { getLocalDate } from "../utils/commonUtils.js";
 
+const { urls } = urlConfig;
 const url = (urls && urls[0].url) ? "URL List" : "Unknown";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
     const publicPath = "./public"
     if (!fs.existsSync(publicPath)){
         fs.mkdirSync(publicPath);

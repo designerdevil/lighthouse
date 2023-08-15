@@ -1,10 +1,11 @@
-const URL = require("url").URL;
-const opts = require("../../config/runtimeConfig");
-const { website } = require("../../config/urlConfig");
-const { launchChromeAndRunLighthouse, downloadFile } = require("../utils/commonUtils")
+import * as myurl from "url";
+import opts from "../../config/runtimeConfig.js";
+import config from "../../config/urlConfig.js";
+import { launchChromeAndRunLighthouse, downloadFile } from "../utils/commonUtils.js"
 
-module.exports = (req, res, next) => {
-    const url = new URL(website)
+export default (req, res, next) => {
+    const { website } = config;
+    const url = new myurl.URL(website)
     const generatedURL = `${url.protocol}//${url.hostname}${url.port && ":" + url.port}${req.query.url}${url.search}`;
     const type = req.query.type;
     console.log(generatedURL);

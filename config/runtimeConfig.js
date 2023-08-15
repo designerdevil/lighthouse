@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   output: ['html', 'json'] /*["csv", "json", "html"]*/,
   chromeFlags: ['--headless'],
   logLevel: 'info',

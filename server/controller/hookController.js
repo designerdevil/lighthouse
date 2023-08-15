@@ -1,8 +1,9 @@
-const configData = require("../../config/urlConfig");
-const route = require("../constants/endpoints");
-const { events, types } = require("../constants/appConstants");
+import configData from "../../config/urlConfig.js";
+import route from "../constants/endpoints.js";
+import constant from "../constants/appConstants.js";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const { events, types } = constant;
     console.log(":::> Incoming Request")
     const reqHeader = req.headers;
     const brand = reqHeader['x-brand'] || '';

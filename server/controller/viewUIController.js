@@ -1,8 +1,8 @@
 
-const route = require("../constants/endpoints");
-const request = require('request');
+import route from "../constants/endpoints.js"
+import request from "request"
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
     const { brand, type, connection } = req.body;
 
     const options = {

@@ -1,7 +1,8 @@
 
-const { baseURL, types } = require("../constants/appConstants");
+import constant from "../constants/appConstants.js";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const { baseURL, types } = constant;
     console.log("::::> HOOK VIEW CONTROLLER");
     const reqHeader = req.headers;
 

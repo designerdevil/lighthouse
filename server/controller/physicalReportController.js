@@ -1,11 +1,12 @@
-const defer = require("promise-defer");
-const opts = require("../../config/runtimeConfig");
-const configData = require("../../config/urlConfig");
-const { launchChromeAndRunLighthouse, writeFile, makeNewDir } = require("../utils/commonUtils");
-const route = require("../constants/endpoints");
-const { types, events } = require("../constants/appConstants");
+import defer from "promise-defer"
+import opts from "../../config/runtimeConfig.js"
+import configData from "../../config/urlConfig.js"
+import { launchChromeAndRunLighthouse, writeFile, makeNewDir } from "../utils/commonUtils.js"
+import route from "../constants/endpoints.js"
+import constant from "../constants/appConstants.js"
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const { types, events } = constant;
     const { hook, type, brand, event } = req.query;
     function urlIterator(condition, action) {
         const resolver = defer();

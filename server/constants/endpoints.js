@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     root: "/",
     physicalReport: "/generateWebReport",
     archive: "/archive",

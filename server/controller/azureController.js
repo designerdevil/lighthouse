@@ -1,11 +1,12 @@
-const fs = require("fs");
-const rimraf = require("rimraf");
-const configData = require("../../config/urlConfig");
-const { getUTCDate, sanitizeDirName } = require("../utils/commonUtils");
-const route = require("../constants/endpoints");
-const { events } = require("../constants/appConstants");
+import fs from "fs"
+import { rimrafSync } from "rimraf"
+import configData from "../../config/urlConfig.js"
+import { getUTCDate, sanitizeDirName } from "../utils/commonUtils.js"
+import route from "../constants/endpoints.js"
+import constant from "../constants/appConstants.js"
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const { events } = constant;
     const event = req.query.event;
     const path = require("path");
     const storage = require("azure-storage");
@@ -94,27 +95,25 @@ module.exports = (req, res, next) => {
                 fileLen--
                 if (fileLen <= 0) {
                     configData.hookInProgress = false;
-                    rimraf(`${path}/${dirName}`, function () {
-                        const archiveFile = `${path}/${dirName}.zip`;
-                        if (fs.existsSync(archiveFile)) {
-                            rimraf(archiveFile, function () {
-                                console.log(`Archive Deleted ${dirName}.zip`);
-                                if (req.query.hook) {
-                                    res.json(dirObj)
-                                    delete process.env.AZURE_STORAGE_CONNECTION_STRING
-                                    configData.external = []
-                                } else
-                                    res.redirect(route.root);
-                            });
-                        } else {
-                            if (req.query.hook) {
-                                res.json(dirObj)
-                                delete process.env.AZURE_STORAGE_CONNECTION_STRING
-                                configData.external = []
-                            } else
-                                res.redirect(route.root);
-                        }
-                    });
+                    rimrafSync(`${path}/${dirName}`);
+                    const archiveFile = `${path}/${dirName}.zip`;
+                    if (fs.existsSync(archiveFile)) {
+                        rimrafSync(archiveFile);
+                        console.log(`Archive Deleted ${dirName}.zip`);
+                        if (req.query.hook) {
+                            res.json(dirObj)
+                            delete process.env.AZURE_STORAGE_CONNECTION_STRING
+                            configData.external = []
+                        } else
+                            res.redirect(route.root);
+                    } else {
+                        if (req.query.hook) {
+                            res.json(dirObj)
+                            delete process.env.AZURE_STORAGE_CONNECTION_STRING
+                            configData.external = []
+                        } else
+                            res.redirect(route.root);
+                    }
                 }
             });
 

@@ -1,9 +1,12 @@
-var express = require("express");
-var path = require("path");
-var initRoutes = require("./routes/routes");
-var hbs = require("hbs");
-var fs = require("fs");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from 'url';
+import initRoutes from "./routes/routes.js";
+import hbs from "hbs";
+import fs from "fs";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(express.json());
@@ -32,4 +35,4 @@ filenames.forEach(function (filename) {
 initRoutes(app);
 
 
-module.exports = app;
+export default app;

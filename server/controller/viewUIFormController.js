@@ -1,7 +1,8 @@
 
-const { events, types } = require("../constants/appConstants");
+import constant from "../constants/appConstants.js"
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const { events, types } = constant;
     res.render("layouts/timeline", {
         form: true
     });

@@ -1,13 +1,14 @@
-const fs = require("fs");
-var path = require("path");
-const rimraf = require("rimraf");
-const configData = require("../../config/urlConfig");
-const { getUTCDate, sanitizeDirName } = require("../utils/commonUtils");
-const route = require("../constants/endpoints");
-const { events } = require("../constants/appConstants");
-const { Storage } = require('@google-cloud/storage');
+import fs from "fs"
+import path from "path"
+import { rimrafSync } from "rimraf"
+import configData from "../../config/urlConfig.js"
+import { getUTCDate, sanitizeDirName } from "../utils/commonUtils.js"
+import route from "../constants/endpoints.js"
+import constant from "../constants/appConstants.js"
+import { Storage } from "@google-cloud/storage"
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
+    const { events } = constant;
     if (!process.env.GCP_PROJECT_STRING) {
         configData.hookInProgress = false;
         res.json({
@@ -68,27 +69,25 @@ module.exports = (req, res, next) => {
                 fileLen--
                 if (fileLen <= 0) {
                     configData.hookInProgress = false;
-                    rimraf(`${rootPath}/${dirName}`, function () {
-                        const archiveFile = `${rootPath}/${dirName}.zip`;
-                        if (fs.existsSync(archiveFile)) {
-                            rimraf(archiveFile, function () {
-                                console.log(`Archive Deleted ${dirName}.zip`);
-                                if (req.query.hook) {
-                                    res.json(dirObj)
-                                    delete process.env.GCP_PROJECT_STRING
-                                    configData.external = []
-                                } else
-                                    res.redirect(route.root);
-                            });
-                        } else {
-                            if (req.query.hook) {
-                                res.json(dirObj)
-                                delete process.env.GCP_PROJECT_STRING
-                                configData.external = []
-                            } else
-                                res.redirect(route.root);
-                        }
-                    });
+                    rimrafSync(`${rootPath}/${dirName}`);
+                    const archiveFile = `${rootPath}/${dirName}.zip`;
+                    if (fs.existsSync(archiveFile)) {
+                        rimrafSync(archiveFile);
+                        console.log(`Archive Deleted ${dirName}.zip`);
+                        if (req.query.hook) {
+                            res.json(dirObj)
+                            delete process.env.GCP_PROJECT_STRING
+                            configData.external = []
+                        } else
+                            res.redirect(route.root);
+                    } else {
+                        if (req.query.hook) {
+                            res.json(dirObj)
+                            delete process.env.GCP_PROJECT_STRING
+                            configData.external = []
+                        } else
+                            res.redirect(route.root);
+                    }
                 }
             });
         }).catch(err => {
