@@ -9,28 +9,35 @@ import gcpController from "../controller/gcpController.js";
 import viewUIFormController from "../controller/viewUIFormController.js";
 import viewUIController from "../controller/viewUIController.js";
 import request from "request"
-import getHrefs from "get-hrefs"
+import * as myurl from "url";
+import { load } from "cheerio";
 import urlConfig from "../../config/urlConfig.js"
 import route from "../constants/endpoints.js"
-
 
 export default function (app) {
     const { website } = urlConfig;
     let websiteURLs;
     if (website) {
         request(website, function (error, response, body = "") {
-            websiteURLs = getHrefs(body)
-                .map((value, index) => {
-                    if (value.indexOf(website) != -1)
-                        return value.replace(website, "")
-                    else
-                        return value
-                })
-                .filter((value) => value.charAt(0) == "/")
+			const url = new myurl.URL(website)
+            const $ = load(body)
+            const links = $('a')
+            const hrefValues = []
+			$(links).each(function(i, link){
+                hrefValues.push($(link).attr('href'))
+            });
+			websiteURLs = [...new Set(hrefValues)].map((value, index) => {
+				if (value.indexOf(website) != -1)
+					return value.replace(website, "")
+				else
+					return value
+			})
+			.filter((value) => value.charAt(0) == "/")
             app.get(route.root, (req, res, next) => {
                 res.render("layouts/main", {
                     type: true,
-                    website: website,
+                    website: url.origin,
+					pathname: url.pathname,
                     hasURL: !!websiteURLs.length,
                     websiteURLs
                 });
