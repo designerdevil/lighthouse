@@ -1,5 +1,5 @@
 ![Node version](https://img.shields.io/badge/node-%3E=16-green.svg) ![Webpack](https://img.shields.io/badge/tool-webpack-yellow.svg) ![Express](https://img.shields.io/badge/server-express-yellow.svg) ![lighthouse](https://img.shields.io/badge/package-lighthouse-lightgrey.svg)
-![lighthouse](https://img.shields.io/badge/build-docker-orange.svg) ![Build Status](https://api.travis-ci.org/designerdevil/lighthouse.svg?branch=master)
+![lighthouse](https://img.shields.io/badge/build-docker-orange.svg)
 
 # lighthouse reporting tool   
 
