@@ -91,9 +91,9 @@ export default (req, res, next) => {
                 }
             });
         }).catch(err => {
-            console.error('ERROR:', err);
+            console.error('::::ERROR IN GCP CONTROLLER::::', err);
             delete process.env.GCP_PROJECT_STRING
-            res.send(err);
+            res.send('-> ERROR OCCURRED')
         });
     }
 

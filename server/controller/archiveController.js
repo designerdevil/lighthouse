@@ -26,7 +26,6 @@ export default (req, res, next) => {
         }
 
     } else {
-
         const output = fs.createWriteStream(`./${zippath}`);
         const archive = archiver("zip");
 

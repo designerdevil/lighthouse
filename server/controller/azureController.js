@@ -122,7 +122,8 @@ export default (req, res, next) => {
         execute().then(() => {
             console.log(`"${dirObj.reportName}" :::: Pushing to Azure...`)
         }).catch((e) => {
-            res.send(e)
+            console.log(":::ERROR - PUSHING TO AZURE FAILED:::", e)
+            res.send('-> ERROR OCCURRED')
         });
     } else {
         const execute = async () => {
@@ -134,7 +135,8 @@ export default (req, res, next) => {
         execute().then(() => {
             //do something
         }).catch((e) => {
-            res.send(e)
+            console.log(":::ERROR IN AZURE CONTROLLER:::", e)
+            res.send('-> ERROR OCCURRED')
         });
     }
 }

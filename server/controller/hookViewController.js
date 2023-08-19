@@ -68,7 +68,8 @@ export default (req, res, next) => {
         return execute().then(() => {
             console.log(":::PULLING FILES FROM AZURE:::")
         }).catch((e) => {
-            res.send(e)
+            console.log(":::ERROR in PULLING FILES FROM AZURE:::", e)
+            res.send('-> ERROR OCCURRED')
         });
     } else if (type == types.gcp) {
         process.env.GCP_PROJECT_STRING = connectionString;
@@ -121,7 +122,9 @@ export default (req, res, next) => {
         return execute().then(() => {
             console.log(":::PULLING FILES FROM GCP:::")
         }).catch((e) => {
-            res.send(e)
+            
+            console.log(":::ERROR in PULLING FILES FROM GCP:::", e)
+            res.send('-> ERROR OCCURRED')
         });
         
     }
