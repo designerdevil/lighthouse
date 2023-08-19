@@ -18,6 +18,7 @@
     "chrome-launcher": "^1.0.0",
     "debug": "~4.3.4",
     "express": "~4.18.2",
+    "express-rate-limit": "^6.9.0",
     "hbs": "^4.2.0",
     "lighthouse": "^11.0.0",
     "promise-defer": "^1.0.0",
