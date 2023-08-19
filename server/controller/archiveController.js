@@ -2,11 +2,11 @@ import path from "path"
 import fs from "fs"
 import archiver from "archiver"
 import { rimrafSync } from "rimraf"
-import { fileURLToPath } from 'url';
+import * as url from 'url';
 import route from "../constants/endpoints.js"
 
 export default (req, res, next) => {
-    const __filename = fileURLToPath(import.meta.url);
+    const __filename = url.fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     const reportName = req.query.report;
     const zippath = `public/${reportName}.zip`
@@ -26,8 +26,7 @@ export default (req, res, next) => {
         }
 
     } else {
-
-        const output = fs.createWriteStream(`./${zippath}`);
+        const output = fs.createWriteStream(url.parse(`./${zippath}`, true).path);
         const archive = archiver("zip");
 
         output.on("close", () => {
