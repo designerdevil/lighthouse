@@ -1,5 +1,5 @@
 import defer from "promise-defer"
-import opts from "../../config/runtimeConfig.js"
+import opts from "../../config/lighthouseFlags.js"
 import configData from "../../config/urlConfig.js"
 import { launchChromeAndRunLighthouse, writeFile, makeNewDir } from "../utils/commonUtils.js"
 import route from "../constants/endpoints.js"

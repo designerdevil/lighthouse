@@ -8,36 +8,40 @@ import azureController from "../controller/azureController.js";
 import gcpController from "../controller/gcpController.js";
 import viewUIFormController from "../controller/viewUIFormController.js";
 import viewUIController from "../controller/viewUIController.js";
-import request from "request"
+import fetch from 'node-fetch';
 import * as myurl from "url";
-import { load } from "cheerio";
+import * as cheerio from "cheerio";
 import urlConfig from "../../config/urlConfig.js"
 import route from "../constants/endpoints.js"
 
-export default function (app) {
+export default async function (app) {
     const { website } = urlConfig;
     let websiteURLs;
     if (website) {
-        request(website, function (error, response, body = "") {
-			const url = new myurl.URL(website)
-            const $ = load(body)
+        const response = await fetch(website);
+        const body = await response.text();
+        const callback = function (body = "") {
+            const url = new myurl.URL(website)
+            const $ = cheerio.load(body)
             const links = $('a')
             const hrefValues = []
-			$(links).each(function(i, link){
+            $(links).each(function (i, link) {
                 hrefValues.push($(link).attr('href'))
             });
-			websiteURLs = [...new Set(hrefValues)].map((value, index) => {
-				if (value.indexOf(website) != -1)
-					return value.replace(website, "")
-				else
-					return value
-			})
-			.filter((value) => value.charAt(0) == "/")
+            websiteURLs = [...new Set(hrefValues)].map((value, index) => {
+                if (value && value.indexOf(website) != -1)
+                    return value.replace(website, "")
+                else
+                    return value || ''
+            });
+
+            websiteURLs = websiteURLs.filter((value) => value.charAt(0) == "/");
+
             app.get(route.root, (req, res, next) => {
                 res.render("layouts/main", {
                     type: true,
                     website: url.origin,
-					pathname: url.pathname,
+                    pathname: url.pathname,
                     hasURL: !!websiteURLs.length,
                     websiteURLs
                 });
@@ -46,7 +50,8 @@ export default function (app) {
             app.get("*", (req, res, next) => {
                 res.redirect(route.root)
             })
-        });
+        };
+        callback(body);
     } else {
         app.get(route.root, reportListController)
         app.get(route.physicalReport, physicalReportController)

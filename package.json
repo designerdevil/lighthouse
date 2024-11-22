@@ -10,31 +10,31 @@
     "dev": "set \"PORT=4002\" && nodemon ./server/server.js",
     "build": "webpack --config ./webpack.config.js --mode production"
   },
-  "dependencies": {
-    "@google-cloud/storage": "^7.0.1",
-    "archiver": "^5.3.1",
-    "azure-storage": "^2.10.2",
-    "cheerio": "^1.0.0-rc.12",
-    "chrome-launcher": "^1.0.0",
-    "debug": "~4.3.4",
-    "express": "~4.18.2",
-    "express-rate-limit": "^6.9.0",
-    "hbs": "^4.2.0",
-    "lighthouse": "^11.0.0",
-    "promise-defer": "^1.0.0",
-    "request": "^2.88.0",
-    "rimraf": "^5.0.1",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-node-externals": "^3.0.0"
-  },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.1.7"
   },
   "nodemonConfig": {
     "ignore": [
       "public",
       "node_modules/**/node_modules"
     ]
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.14.0",
+    "archiver": "^7.0.1",
+    "azure-storage": "^2.10.7",
+    "cheerio": "^1.0.0",
+    "chrome-launcher": "^1.1.2",
+    "debug": "^4.3.7",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "hbs": "^4.2.0",
+    "lighthouse": "^12.2.2",
+    "node-fetch": "^3.3.2",
+    "promise-defer": "^1.0.0",
+    "rimraf": "^6.0.1",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
   }
 }

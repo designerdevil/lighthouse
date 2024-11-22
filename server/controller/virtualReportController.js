@@ -1,5 +1,5 @@
 import * as myurl from "url";
-import opts from "../../config/runtimeConfig.js";
+import opts from "../../config/lighthouseFlags.js";
 import config from "../../config/urlConfig.js";
 import { launchChromeAndRunLighthouse, downloadFile } from "../utils/commonUtils.js"
 

@@ -3,17 +3,20 @@ import lighthouse from 'lighthouse'
 import fs from 'fs'
 import { rimrafSync } from 'rimraf'
 import zlib from 'zlib'
+import lighthouseConfig from "../../config/lighthouseConfigs.js"
 
+// https://github.com/GoogleChrome/lighthouse/blob/main/docs/readme.md#using-programmatically
 export const launchChromeAndRunLighthouse = async function (
 	url,
-	opts,
+	flags,
 	callback
 ) {
 	const chrome = await chromeLauncher.launch({
 		chromeFlags: ['--headless', '--disable-gpu']
 	})
-	const options = { port: chrome.port, ...opts }
-	const runnerResult = await lighthouse(url, options)
+	const _flags = { port: chrome.port, ...flags };
+	const _config = { ...lighthouseConfig };
+	const runnerResult = await lighthouse(url, _flags, _config)
 	const report = await runnerResult.report
 	callback(report)
 	await chrome.kill()

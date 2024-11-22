@@ -1,8 +1,8 @@
 
 import route from "../constants/endpoints.js"
-import request from "request"
+import fetch from 'node-fetch';
 
-export default (req, res, next) => {
+export default async (req, res, next) => {
     const { brand, type, connection } = req.body;
 
     const options = {
@@ -22,5 +22,8 @@ export default (req, res, next) => {
         res.send("ERROR")
     }
 
+    const response = await fetch(options.url, { ...options });
+    const body = await response.text();
+    res.send(body);
     request(options, callback);
 }

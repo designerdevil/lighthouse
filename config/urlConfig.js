@@ -1,5 +1,5 @@
 export default {
-    // website: 'https://www.sonyliv.com/shows/the-kapil-sharma-show-1700000083', //ENTER WEBSITE URL HERE TO SCAN
+    // website: 'https://www.freecodecamp.org/news/', //ENTER WEBSITE URL HERE TO SCAN
     urls: [
         {
             name: "Designerdevil", //ENTER PAGE NAME HERE
